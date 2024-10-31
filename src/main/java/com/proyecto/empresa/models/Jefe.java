@@ -1,11 +1,14 @@
 package com.proyecto.empresa.models;
 
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity //Cada campo añadido es una columna en BBDD
@@ -22,6 +25,9 @@ public class Jefe {
     private Long salario;
     private Date fecha_jefe;
 
+    //Relación de uno a muchos hacia Departamento(las operaciones en Jefe se reflejan en Departamento)
+    @OneToMany(mappedBy = "jefe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Departamento> departamentos;
  
     //Getters y setters
     public Long getId() {
