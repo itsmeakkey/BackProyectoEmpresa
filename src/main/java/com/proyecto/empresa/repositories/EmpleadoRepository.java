@@ -1,9 +1,10 @@
 package com.proyecto.empresa.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.proyecto.empresa.models.Empleado;
+import org.springframework.stereotype.Repository;
 
-public interface EmpleadoRepository extends JpaRepository<Empleado, Long>{
-
+@Repository  // Esta anotación ayuda a Spring a reconocerlo como repositorio concreto
+public interface EmpleadoRepository extends TrabajadorRepository<Empleado> {
+    // Puedes definir métodos específicos de Empleado aquí si es necesario
+    // List<Empleado> findByDepartmentId(Long departmentId);
 }
