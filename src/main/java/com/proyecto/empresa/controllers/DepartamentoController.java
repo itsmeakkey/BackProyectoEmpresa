@@ -18,7 +18,8 @@ public class DepartamentoController {
 	public DepartamentoController(DepartamentoServices departamentoServices) {
 		this.departamentoServices = departamentoServices;
 	}
-	// Endpoint para obtener todos los departamentos
+	
+	//Endpoint para obtener todos los departamentos
     @GetMapping
     public List<Departamento> getAllDepartamentos() {
         return departamentoServices.getAllDepartamentos();

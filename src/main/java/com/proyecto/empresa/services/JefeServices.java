@@ -2,17 +2,13 @@ package com.proyecto.empresa.services;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.repositories.JefeRepository;
 
-@Service
 public class JefeServices {
-
     private final JefeRepository jefeRepository;
 
-    @Autowired
+	//No se necesita Autowired porque manejamos las inyecciones con beans desde AppConfig
     public JefeServices(JefeRepository jefeRepository) {
         this.jefeRepository = jefeRepository;
     }

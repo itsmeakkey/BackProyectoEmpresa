@@ -3,19 +3,14 @@ package com.proyecto.empresa.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.proyecto.empresa.models.Tareas;
 import com.proyecto.empresa.repositories.TareasRepository;
  
-@Service
+
 public class TareasServices {
  
+	//No se necesita Autowired porque manejamos las inyecciones con beans desde AppConfig
     private final TareasRepository tareasRepository;
- 
-    @Autowired
     public TareasServices(TareasRepository tareasRepository) {
         this.tareasRepository = tareasRepository;
     }
