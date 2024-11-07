@@ -3,7 +3,7 @@ package com.proyecto.empresa.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import com.proyecto.empresa.models.Tareas;
+import com.proyecto.empresa.models.Tarea;
 import com.proyecto.empresa.repositories.TareasRepository;
  
 
@@ -16,17 +16,17 @@ public class TareasServices {
     }
  
     // Obtiene todas las tareas
-    public List<Tareas> getAll() {
+    public List<Tarea> getAll() {
         return tareasRepository.findAll();
     }
  
     // Busca tarea por ID
-    public Optional<Tareas> findById(Long id) {
+    public Optional<Tarea> findById(Long id) {
         return tareasRepository.findById(id);
     }
  
     // Guarda o actualiza una tarea
-    public Tareas save(Tareas tarea) {
+    public Tarea save(Tarea tarea) {
         return tareasRepository.save(tarea);
     }
  
@@ -36,37 +36,37 @@ public class TareasServices {
     }
  
     // Busca tareas asignadas a un empleado específico
-    public List<Tareas> findByEmpleadoId(Long empleadoId) {
+    public List<Tarea> findByEmpleadoId(Long empleadoId) {
         return tareasRepository.findByEmpleadoId(empleadoId);
     }
  
     // Busca tareas entregadas a tiempo
-    public List<Tareas> findByEntregaATiempo() {
+    public List<Tarea> findByEntregaATiempo() {
         return tareasRepository.findByEntregadoATiempoTrue();
     }
  
     // Busca tareas entregadas fuera de tiempo
-    public List<Tareas> findByEntregaADestiempo() {
+    public List<Tarea> findByEntregaADestiempo() {
         return tareasRepository.findByEntregadoATiempoFalse();
     }
  
     // Busca tareas no finalizadas (fecha de fin es null)
-    public List<Tareas> findByNotFinished() {
+    public List<Tarea> findByNotFinished() {
         return tareasRepository.findByFechaFinIsNull();
     }
  
     // Busca tareas creadas después de una fecha específica
-    public List<Tareas> findByFechaCreacion(Date fecha) {
+    public List<Tarea> findByFechaCreacion(Date fecha) {
         return tareasRepository.findByFechaCreacionAfter(fecha);
     }
  
     // Busca tareas creadas antes de una fecha específica
-    public List<Tareas> findByFechaAnteriorCreacion(Date fecha) {
+    public List<Tarea> findByFechaAnteriorCreacion(Date fecha) {
         return tareasRepository.findByFechaCreacionBefore(fecha);
     }
  
     // Busca tareas creadas entre dos fechas específicas
-    public List<Tareas> findByFechaEntreCreacion(Date fechaInicio, Date fechaFin) {
+    public List<Tarea> findByFechaEntreCreacion(Date fechaInicio, Date fechaFin) {
         return tareasRepository.findByFechaCreacionBetween(fechaInicio, fechaFin);
     }
 }

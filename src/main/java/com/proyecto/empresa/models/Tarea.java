@@ -10,8 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
  
 @Entity
-@Table(name = "tareas") // Especifica el nombre de la tabla
-public class Tareas {
+@Table(name = "tarea") // Especifica el nombre de la tabla
+public class Tarea {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

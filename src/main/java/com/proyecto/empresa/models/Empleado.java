@@ -27,7 +27,7 @@ public class Empleado extends TrabajadorEmpresa {
 
 	// Relación uno a muchos con Tareas
 	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Tareas> tareas;
+	private List<Tarea> tareas;
 
 	// Métodos especificos para empleado
 }

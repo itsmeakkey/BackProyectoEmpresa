@@ -22,7 +22,8 @@ public class DepartamentoController {
 	public DepartamentoController(DepartamentoServices departamentoServices) {
 		this.departamentoServices = departamentoServices;
 	}
-	
+
+//MÉTODOS COMUNES
 	//Endpoint para obtener todos los departamentos
     @GetMapping
     public List<Departamento> getAllDepartamentos() {
@@ -35,7 +36,9 @@ public class DepartamentoController {
         return this.departamentoServices.findById(id);
     }
     
-    //Crear un departamento nuevo . @RequestBody convierte el json a Departamento en la petición
+    
+ //MÉTODOS PROPIOS    
+    //Crear un departamento nuevo con @RequestBody convierte el json a Departamento en la petición
     @PostMapping()
     public Departamento saveDepartamento(@RequestBody Departamento d) {
     return this.departamentoServices.saveDepartamento(d);
