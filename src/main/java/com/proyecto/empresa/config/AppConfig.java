@@ -17,13 +17,13 @@ public class AppConfig {
 	
 	//Inyección de dependencias de repositories a services
     @Bean
-    public DepartamentoServices departamentoServices(DepartamentoRepository departamentoRepository) {
-        return new DepartamentoServices(departamentoRepository);
+    public DepartamentoServices departamentoServices(DepartamentoRepository departamentoRepository, JefeRepository jefeRepository) {
+        return new DepartamentoServices(departamentoRepository, jefeRepository);
     }
 
     @Bean
-    public EmpleadoServices empleadoServices(EmpleadoRepository empleadoRepository) {
-        return new EmpleadoServices(empleadoRepository);
+    public EmpleadoServices empleadoServices(EmpleadoRepository empleadoRepository, DepartamentoRepository departamentoRepository) {
+        return new EmpleadoServices(empleadoRepository, departamentoRepository);
     }
 
     @Bean
@@ -32,7 +32,7 @@ public class AppConfig {
     }
 
     @Bean
-    public TareasServices tareasServices(TareasRepository tareasRepository) {
-        return new TareasServices(tareasRepository);
+    public TareasServices tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
+        return new TareasServices(tareasRepository, empleadoRepository);
     }
 }

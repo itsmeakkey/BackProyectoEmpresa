@@ -1,6 +1,7 @@
 package com.proyecto.empresa.models;
 
 import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,8 +21,11 @@ public class Departamento {
 	private Long id;
 
 	private String nombre;
-
+	
+	
+	
 	// Relación de muchos a uno entre Departamento y Jefe
+	
 	@ManyToOne
 	@JoinColumn(name = "jefe_id") // Clave foránea
 	private Jefe jefe;
