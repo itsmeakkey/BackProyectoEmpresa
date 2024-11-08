@@ -9,8 +9,8 @@ import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class TrabajadorEmpresa {
-	@Id // Indica que este es el campo de identificación
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremental
+	@Id //Indica que este es el id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto-incremental
     protected Long id;
 
 
@@ -19,6 +19,10 @@ public abstract class TrabajadorEmpresa {
 	protected Date fecha_alta;
 	protected Date fecha_baja;
 	protected Long salario;
+	
+    //Constructor vacío para JPA
+    protected TrabajadorEmpresa() {
+    }
 
 	// Contructor clase Abstracta
 	//No se debe pasar el id como parámetro en el constructor, ya que este campo se generará automáticamente

@@ -12,6 +12,10 @@ import jakarta.persistence.Table;
 @Entity // Cada campo añadido es una columna en BBDD
 @Table(name = "jefe")
 public class Jefe extends TrabajadorEmpresa {
+	
+    //Constructor vacío para JPA
+    public Jefe() {
+    }
 
 	private Date fechaJefe;
 
@@ -24,6 +28,7 @@ public class Jefe extends TrabajadorEmpresa {
 	@OneToMany(mappedBy = "jefe", cascade = CascadeType.ALL, orphanRemoval = true)
 
 	private List<Departamento> departamentos;
+	
 // Getter y Setter
 
 	public Date getFechaJefe() {

@@ -2,8 +2,10 @@ package com.proyecto.empresa.services;
 
 import java.util.List;
 import java.util.Optional;
+
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.repositories.JefeRepository;
+import com.proyecto.empresa.to.JefeTO;
 
 public class JefeServices {
     private final JefeRepository jefeRepository;
@@ -12,23 +14,39 @@ public class JefeServices {
     public JefeServices(JefeRepository jefeRepository) {
         this.jefeRepository = jefeRepository;
     }
-
-    // Método para obtener todos los registros
+    
+	//MÉTODOS COMUNES
+    //Método para obtener todos los registros
     public List<Jefe> getAll() {
         return jefeRepository.findAll();
     }
 
-    // Método para buscar por ID
+    //Método para buscar por ID
     public Optional<Jefe> findById(Long id) {
         return jefeRepository.findById(id);
     }
+    
+    //MÉTODOS PROPIOS  
+    //Método para crear un jefe
+    public Jefe createJefe(JefeTO j) {
+    	
+    	Jefe jefe = new Jefe();
+    	jefe.setNombre(j.getNombre());
+    	jefe.setEdad(j.getEdad());
+    	jefe.setFecha_alta(j.getFecha_alta());
+    	jefe.setFecha_baja(j.getFecha_baja());
+    	jefe.setSalario(j.getSalario());
+    	jefe.setFechaJefe(j.getFechaJefe());
+    	
+    return jefeRepository.save(jefe);
+    }
 
-    // Método para buscar jefes por nombre
+    //Método para buscar jefes por nombre
     public List<Jefe> findByNombre(String nombre) {
         return jefeRepository.findByNombre(nombre);
     }
 
-    // Método para buscar jefes por edad
+    //Método para buscar jefes por edad
     public List<Jefe> findByEdad(int edad) {
         return jefeRepository.findByEdad(edad);
     }

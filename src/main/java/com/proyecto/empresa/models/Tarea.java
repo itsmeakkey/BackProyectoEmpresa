@@ -1,6 +1,9 @@
 package com.proyecto.empresa.models;
  
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tarea") // Especifica el nombre de la tabla
 public class Tarea {
+	
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +34,7 @@ public class Tarea {
     // Relación muchos a uno con Empleado
     @ManyToOne
     @JoinColumn(name = "empleado_id") // Clave foránea
+	@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
     private Empleado empleado;
  
     // Getters y Setters
