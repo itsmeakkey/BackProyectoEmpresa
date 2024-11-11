@@ -64,5 +64,10 @@ public class JefeServices {
     public List<Jefe> findByEntreSalarios(Long salarioMin, Long salarioMax) {
         return jefeRepository.findBySalarioBetween(salarioMin, salarioMax);
     }
+    
+    //Eliminar un jefe
+    public void deleteJefeId (Long idJefe) {
+    	jefeRepository.deleteById(idJefe);
+    }
 }
 

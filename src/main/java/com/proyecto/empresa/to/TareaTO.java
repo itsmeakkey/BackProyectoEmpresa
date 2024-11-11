@@ -11,6 +11,7 @@ public class TareaTO{
     private Date fechaFin;
     private Boolean entregadoATiempo;
     private Date fechaEstimada;
+    //TODO ESTE CAMPO DEBE SER TO
     private Empleado empleado;
     
     public Long getId() {

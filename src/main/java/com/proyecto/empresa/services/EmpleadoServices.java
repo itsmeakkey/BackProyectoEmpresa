@@ -11,7 +11,8 @@ import com.proyecto.empresa.to.EmpleadoTO;
 
 public class EmpleadoServices {
 
-	//No se necesita Autowired porque manejamos las inyecciones con beans desde AppConfig
+	// No se necesita Autowired porque manejamos las inyecciones con beans desde
+	// AppConfig
 	private final EmpleadoRepository empleadoRepository;
 	private final DepartamentoRepository departamentoRepository;
 
@@ -20,40 +21,63 @@ public class EmpleadoServices {
 		this.departamentoRepository = departamentoRepository;
 	}
 
-	//MÉTODOS COMUNES
-	//Método para obtener todos los registros
+	// MÉTODOS COMUNES
+	// Método para obtener todos los registros
 	public List<Empleado> getAll() {
 		return empleadoRepository.findAll();
 	}
 
-	//Método para buscar por ID
+	// Método para buscar por ID
 	public Optional<Empleado> findById(Long id) {
 		return empleadoRepository.findById(id);
 	}
 
-	//MÉTODOS PROPIOS
-	//Método para crear un empleado
+	// MÉTODOS PROPIOS
+	// Método para crear un empleado
 	public Empleado createEmpleado(EmpleadoTO e) {
-		//Buscamos el departamento por ID
+		// Buscamos el departamento por ID
 		Departamento departamento = departamentoRepository.findById(e.getDepartamento().getId())
 				.orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
-		
+
 		e.setDepartamento(departamento);
-		//Crear el objeto empleado para asignar los valores
+		// Crear el objeto empleado para asignar los valores
 		Empleado empleado = new Empleado();
-		
-				empleado.setNombre(e.getNombre());
-				empleado.setEdad(e.getEdad());
-				empleado.setFecha_alta(e.getFecha_alta());
-				empleado.setFecha_baja(e.getFecha_baja());
-				empleado.setSalario(e.getSalario());
-				
-				//Asigno el departamento al empleado
-				empleado.setDepartamento(departamento);
-				
-		//Guardamos el empleado en BBDD
+
+		empleado.setNombre(e.getNombre());
+		empleado.setEdad(e.getEdad());
+		empleado.setFecha_alta(e.getFecha_alta());
+		empleado.setFecha_baja(e.getFecha_baja());
+		empleado.setSalario(e.getSalario());
+
+		// Asigno el departamento al empleado
+		empleado.setDepartamento(departamento);
+
+		// Guardamos el empleado en BBDD
 		return empleadoRepository.save(empleado);
-				
+	}
+
+	// Método para actualizar un empleado usando EmpleadoTO
+	public Empleado actualizarEmpleado(Long id, EmpleadoTO e) {
+		// Busca el empleado por id
+		Empleado empleado = empleadoRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+		//Buscamos el departamento por id
+		Departamento departamento = departamentoRepository.findById(e.getDepartamento().getId())
+				.orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
+
+		//Asignamos los valores	
+		empleado.setNombre(e.getNombre());
+		empleado.setEdad(e.getEdad());
+		empleado.setFecha_alta(e.getFecha_alta());
+		empleado.setFecha_baja(e.getFecha_baja());
+		empleado.setSalario(e.getSalario());
+
+		//Asignamos el departamento al empleado
+		empleado.setDepartamento(departamento);
+
+		//Guardamos los cambios
+		return empleadoRepository.save(empleado);
 	}
 
 	// Método para buscar empleados por nombre
@@ -79,6 +103,11 @@ public class EmpleadoServices {
 	// Método para buscar empleados con salarios en un rango específico
 	public List<Empleado> findByEntreSalarios(Long salarioMin, Long salarioMax) {
 		return empleadoRepository.findBySalarioBetween(salarioMin, salarioMax);
+	}
+
+	// Eliminar un empleado
+	public void deleteEmpleadoId(Long idEmpleado) {
+		empleadoRepository.deleteById(idEmpleado);
 	}
 
 }

@@ -46,4 +46,15 @@ public class DepartamentoServices {
     	
     	return departamentoRepository.save(depar);
     }
-}
+    
+     //Eliminar departamentos
+    public void deleteDepartamentoId (Long idDepartamento) {
+    	departamentoRepository.deleteById(idDepartamento);
+    }
+   
+    
+    //Acualizar departamentos
+    
+    
+   
+}	

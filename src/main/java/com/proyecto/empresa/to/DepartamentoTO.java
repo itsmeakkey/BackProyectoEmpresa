@@ -8,6 +8,7 @@ import com.proyecto.empresa.models.Jefe;
 public class DepartamentoTO {
 	private Long id;
 	private String nombre;
+	//TODO Este jefe debe ser JEFETO
 	private Jefe jefe;
 	private List<Empleado> empleados;
 

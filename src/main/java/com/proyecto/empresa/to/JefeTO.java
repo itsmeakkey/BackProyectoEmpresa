@@ -6,6 +6,7 @@ import java.util.List;
 import com.proyecto.empresa.models.Departamento;
 
 public class JefeTO extends TrabajadorEmpresaTO {
+	//TODO ESTOS CAMPOS DEBEN SER TO
 	private Date fechaJefe;
 	private List<Departamento> departamentos;
 	
