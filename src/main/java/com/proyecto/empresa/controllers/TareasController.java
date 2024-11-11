@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,21 +30,20 @@ public class TareasController {
 		this.tareasServices = tareasServices;
 	}
 
-	// MÉTODOS COMUNES
-	// Endpoint para obtener todos las tareas
+	//MÉTODOS COMUNES
+	//Endpoint para obtener todos las tareas
 	@GetMapping
 	public List<Tarea> getAllTareas() {
 		return this.tareasServices.getAll();
 	}
 
-	// Endpoint para buscar tareas por Id
+	//Endpoint para buscar tareas por Id
 	@GetMapping(path = "/{id}")
 	public Optional<Tarea> findById(@PathVariable("id") Long id) {
 		return this.tareasServices.findById(id);
 	}
 
 	// MÉTODOS PROPIOS
-
 	/* CREAR */
 	@PostMapping()
 	public ResponseEntity<Tarea> createTarea(@RequestBody TareaTO tareaTo) {
@@ -54,7 +54,7 @@ public class TareasController {
 		return new ResponseEntity<>(createTarea, HttpStatus.CREATED);
 	}
 
-	// Endpoint para buscar tareas asignadas a un empelado específico
+	//Endpoint para buscar tareas asignadas a un empelado específico
 	@GetMapping(path = "/tarea/{empleadoId}")
 	public ResponseEntity<List<Tarea>> findByEmpleadoId(@PathVariable("empleadoId") Long id) {
 		// Llamada al servicio para buscar la tarea
@@ -78,7 +78,7 @@ public class TareasController {
 		return new ResponseEntity<>(tarea, HttpStatus.OK);
 	}
 
-	// Endpoint para buscar tareas entregadas a destiempo(false)
+	//Endpoint para buscar tareas entregadas a destiempo(false)
 	@GetMapping(path = "/tarea/false")
 	public ResponseEntity<List<Tarea>> findByEntregaADestiempo() {
 		// Llamada al servicio para buscar la tarea
@@ -90,7 +90,7 @@ public class TareasController {
 		return new ResponseEntity<>(tarea, HttpStatus.OK);
 	}
 
-	// Endpoint para buscar tareas no finalizadas
+	//Endpoint para buscar tareas no finalizadas
 	@GetMapping(path = "/tarea/nofinalizada")
 	public ResponseEntity<List<Tarea>> findByNotFinished() {
 		// Llamada al servicio para buscar la tarea
@@ -101,10 +101,10 @@ public class TareasController {
 		}
 		return new ResponseEntity<>(tarea, HttpStatus.OK);
 	}
-//PENDIENTES DE ARREGLAR
-	// Endpoint para buscar tareas entregadas después de una fecha específica
-	@GetMapping(path = "/fecha/{fechaPos}")
-		public ResponseEntity<List<Tarea>>findByFechaCreacion(@PathVariable("fecha")Date fechaCreacion) {
+
+	//Endpoint para buscar tareas entregadas después de una fecha específica. DateTimeFormat nos permite el usar el forato YYYY-MM-DD en la URL
+	@GetMapping(path = "/fechaDespues/{fecha}")
+		 ResponseEntity<List<Tarea>> findByFechaCreacion(@PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaCreacion) {
 			// Llamada al servicio para buscar la tarea
 			List<Tarea> tarea = tareasServices.findByFechaCreacion(fechaCreacion);
 			// Si no encuentra la tarea, devuelve un 404. Si existe, devuelve un 200
@@ -113,10 +113,10 @@ public class TareasController {
 			}
 			return new ResponseEntity<>(tarea, HttpStatus.OK);
 		}
-	//PENDIENTES DE ARREGLAR
-	// Endpoint para buscar tareas entregadas antes de una fecha específica
-	@GetMapping(path = "/fecha/{fechaAnt}")
-		public ResponseEntity<List<Tarea>>findByFechaAnteriorCreacion(@PathVariable("fecha")Date fechaCreacion) {
+	
+	//Endpoint para buscar tareas entregadas antes de una fecha específica
+	@GetMapping(path = "/fechaAnterior/{fecha}")
+		public ResponseEntity<List<Tarea>>findByFechaAnteriorCreacion(@PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaCreacion) {
 			// Llamada al servicio para buscar la tarea
 			List<Tarea> tarea = tareasServices.findByFechaAnteriorCreacion(fechaCreacion);
 			// Si no encuentra la tarea, devuelve un 404. Si existe, devuelve un 200
@@ -126,5 +126,19 @@ public class TareasController {
 			return new ResponseEntity<>(tarea, HttpStatus.OK);
 		}
 		
+	//Endpoint para buscar tareas entregadas entre dos fechas 
+	@GetMapping(path = "/fechaEntre/{fechauno}/{fechados}")
+	public ResponseEntity<List<Tarea>>findByFechaCreacionBetween(
+			@PathVariable("fechauno") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaA, 
+			@PathVariable("fechados") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaB) {
+		// Llamada al servicio para buscar la tarea
+		List<Tarea> tarea = tareasServices.findByFechaEntreCreacion(fechaA, fechaB);
+		// Si no encuentra la tarea, devuelve un 404. Si existe, devuelve un 200
+		if (tarea.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(tarea, HttpStatus.OK);
+	}
+
 
 }

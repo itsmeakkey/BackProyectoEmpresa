@@ -31,7 +31,6 @@ public class Empleado extends TrabajadorEmpresa {
 	@JoinColumn(name = "departamento_id") // Clave foránea en la tabla empleado
 	@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
 	private Departamento departamento;
-
 	public Departamento getDepartamento() {
 		return departamento;
 	}
@@ -52,7 +51,4 @@ public class Empleado extends TrabajadorEmpresa {
 	public void setTareas(List<Tarea> tareas) {
 		this.tareas = tareas;
 	}
-
-
-	// Métodos especificos para empleado
 }

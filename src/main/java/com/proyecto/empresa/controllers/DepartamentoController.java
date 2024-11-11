@@ -42,8 +42,7 @@ public class DepartamentoController {
     
     //MÉTODOS PROPIOS  
     /*CREAR
-    Los datos devueltos de la petición son devueltos como objects y hay que castearlos.
-   	Usamos Map para extraer los datos del JSON y los guardamos luego en variables extrayéndolos con get. */
+    Los datos devueltos de la petición son devueltos como objects y hay que castearlos.*/
     @PostMapping()
     public ResponseEntity<Departamento> createDepartamento(@RequestBody DepartamentoTO d) {
         Departamento createDepartamento = departamentoServices.createDepartamento(d);

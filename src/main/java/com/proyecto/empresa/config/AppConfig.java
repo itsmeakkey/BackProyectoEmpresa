@@ -16,6 +16,7 @@ import com.proyecto.empresa.services.DepartamentoServices;
 public class AppConfig {
 	
 	//Inyección de dependencias de repositories a services
+	
     @Bean
     public DepartamentoServices departamentoServices(DepartamentoRepository departamentoRepository, JefeRepository jefeRepository) {
         return new DepartamentoServices(departamentoRepository, jefeRepository);

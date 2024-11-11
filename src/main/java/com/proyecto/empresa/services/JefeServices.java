@@ -29,7 +29,6 @@ public class JefeServices {
     //MÉTODOS PROPIOS  
     //Método para crear un jefe
     public Jefe createJefe(JefeTO j) {
-    	
     	Jefe jefe = new Jefe();
     	jefe.setNombre(j.getNombre());
     	jefe.setEdad(j.getEdad());

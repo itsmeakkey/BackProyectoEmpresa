@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface TareasRepository extends JpaRepository<Tarea, Long> {
-
 	/*
 	 * Métodos comunes en todas las clases: getAll(): obtiene todos los registros.
 	 * findById(): busca por ID

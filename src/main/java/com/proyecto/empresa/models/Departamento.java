@@ -19,10 +19,7 @@ public class Departamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String nombre;
-	
-	
 	
 	// Relación de muchos a uno entre Departamento y Jefe
 	

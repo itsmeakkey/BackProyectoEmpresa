@@ -15,20 +15,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tarea") // Especifica el nombre de la tabla
 public class Tarea {
-	
- 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
- 
     private String nombreTarea;
- 
     private Date fechaCreacion;
- 
     private Date fechaFin;
- 
     private Boolean entregadoATiempo;
- 
     private Date fechaEstimada;
  
     // Relación muchos a uno con Empleado

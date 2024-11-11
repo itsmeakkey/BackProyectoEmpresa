@@ -12,8 +12,6 @@ public abstract class TrabajadorEmpresa {
 	@Id //Indica que este es el id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto-incremental
     protected Long id;
-
-
 	protected String nombre;
 	protected Integer edad;
 	protected Date fecha_alta;
@@ -33,7 +31,6 @@ public abstract class TrabajadorEmpresa {
 		this.fecha_baja = fecha_baja;
 		this.salario = salario;
 	}
-	
 	
 	//Getters y Setters
 	public Long getId() {

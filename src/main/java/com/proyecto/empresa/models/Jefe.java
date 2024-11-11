@@ -29,7 +29,7 @@ public class Jefe extends TrabajadorEmpresa {
 
 	private List<Departamento> departamentos;
 	
-// Getter y Setter
+// Getters y Setters
 
 	public Date getFechaJefe() {
 		return fechaJefe;
@@ -38,6 +38,4 @@ public class Jefe extends TrabajadorEmpresa {
 	public void setFechaJefe(Date fechaJefe) {
 		this.fechaJefe = fechaJefe;
 	}
-
-	// Métodos especificos de jefe
 }

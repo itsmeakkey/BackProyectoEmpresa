@@ -11,8 +11,7 @@ import com.proyecto.empresa.to.EmpleadoTO;
 
 public class EmpleadoServices {
 
-	// No se necesita Autowired porque manejamos las inyecciones con beans desde
-	// AppConfig
+	//No se necesita Autowired porque manejamos las inyecciones con beans desde AppConfig
 	private final EmpleadoRepository empleadoRepository;
 	private final DepartamentoRepository departamentoRepository;
 
@@ -21,19 +20,19 @@ public class EmpleadoServices {
 		this.departamentoRepository = departamentoRepository;
 	}
 
-	// MÉTODOS COMUNES
-	// Método para obtener todos los registros
+	//MÉTODOS COMUNES
+	//Método para obtener todos los registros
 	public List<Empleado> getAll() {
 		return empleadoRepository.findAll();
 	}
 
-	// Método para buscar por ID
+	//Método para buscar por ID
 	public Optional<Empleado> findById(Long id) {
 		return empleadoRepository.findById(id);
 	}
 
-	// MÉTODOS PROPIOS
-	// Método para crear un empleado
+	//MÉTODOS PROPIOS
+	//Método para crear un empleado
 	public Empleado createEmpleado(EmpleadoTO e) {
 		//Buscamos el departamento por ID
 		Departamento departamento = departamentoRepository.findById(e.getDepartamento().getId())
