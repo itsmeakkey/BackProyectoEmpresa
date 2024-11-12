@@ -12,7 +12,7 @@ public class TareaTO{
     private Boolean entregadoATiempo;
     private Date fechaEstimada;
     //TODO ESTE CAMPO DEBE SER TO
-    private Empleado empleado;
+    private EmpleadoTO empleadoTO;
     
     public Long getId() {
 		return id;
@@ -50,11 +50,11 @@ public class TareaTO{
 	public void setFechaEstimada(Date fechaEstimada) {
 		this.fechaEstimada = fechaEstimada;
 	}
-	public Empleado getEmpleado() {
-		return empleado;
+	public EmpleadoTO getEmpleadoTO() {
+		return empleadoTO;
 	}
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
+	public void setEmpleadoTO(EmpleadoTO empleadoTO) {
+		this.empleadoTO = empleadoTO;
 	}
-    
+	
 }

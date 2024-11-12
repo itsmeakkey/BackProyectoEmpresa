@@ -63,6 +63,7 @@ public class DepartamentoController {
 		Departamento createDepartamento = departamentoServices.createDepartamento(d);
 		DepartamentoTO inventado = new DepartamentoTO();
 		inventado.setNombre(createDepartamento.getNombre());
+		
 
 		return new ResponseEntity<Departamento>(createDepartamento, HttpStatus.CREATED);
 	}

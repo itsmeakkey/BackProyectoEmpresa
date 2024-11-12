@@ -9,8 +9,8 @@ public class DepartamentoTO {
 	private Long id;
 	private String nombre;
 	//TODO Este jefe debe ser JEFETO
-	private Jefe jefe;
-	private List<Empleado> empleados;
+	private JefeTO jefeTO;
+	private List<EmpleadoTO> empleados;
 
 	public Long getId() {
 		return id;
@@ -28,20 +28,21 @@ public class DepartamentoTO {
 		this.nombre = nombre;
 	}
 
-	public Jefe getJefe() {
-		return jefe;
+	public JefeTO getJefeTO() {
+		return jefeTO;
 	}
 
-	public void setJefe(Jefe jefe) {
-		this.jefe = jefe;
+	public void setJefeTO(JefeTO jefeTO) {
+		this.jefeTO = jefeTO;
 	}
 
-	public List<Empleado> getEmpleados() {
+	public List<EmpleadoTO> getEmpleadosTO() {
 		return empleados;
 	}
 
-	public void setEmpleados(List<Empleado> empleados) {
+	public void setEmpleados(List<EmpleadoTO> empleados) {
 		this.empleados = empleados;
 	}
+
 
 }

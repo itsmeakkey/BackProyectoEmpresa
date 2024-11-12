@@ -8,7 +8,7 @@ import com.proyecto.empresa.models.Departamento;
 public class JefeTO extends TrabajadorEmpresaTO {
 	//TODO ESTOS CAMPOS DEBEN SER TO
 	private Date fechaJefe;
-	private List<Departamento> departamentos;
+	private List<DepartamentoTO> departamentosTO;
 	
 	public Date getFechaJefe() {
 		return fechaJefe;
@@ -16,11 +16,11 @@ public class JefeTO extends TrabajadorEmpresaTO {
 	public void setFechaJefe(Date fechaJefe) {
 		this.fechaJefe = fechaJefe;
 	}
-	public List<Departamento> getDepartamentos() {
-		return departamentos;
+	public List<DepartamentoTO> getDepartamentosTO() {
+		return departamentosTO;
 	}
-	public void setDepartamentos(List<Departamento> departamentos) {
-		this.departamentos = departamentos;
+	public void setDepartamentosTO(List<DepartamentoTO> departamentosTO) {
+		this.departamentosTO = departamentosTO;
 	}
 
 }

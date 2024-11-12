@@ -36,10 +36,9 @@ public class EmpleadoServices {
 	// Método para CREAR un empleado
 	public Empleado createEmpleado(EmpleadoTO e) {
 		// Buscamos el departamento por ID
-		Departamento departamento = departamentoRepository.findById(e.getDepartamento().getId())
+		Departamento departamento = departamentoRepository.findById(e.getDepartamentoTO().getId())
 				.orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
 
-		e.setDepartamento(departamento);
 		// Crear el objeto empleado para asignar los valores
 		Empleado empleado = new Empleado();
 
@@ -68,7 +67,7 @@ public class EmpleadoServices {
 				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
 
 		// Buscamos el departamento por id
-		Departamento departamento = departamentoRepository.findById(e.getDepartamento().getId())
+		Departamento departamento = departamentoRepository.findById(e.getDepartamentoTO().getId())
 				.orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
 
 		// Asignamos los valores

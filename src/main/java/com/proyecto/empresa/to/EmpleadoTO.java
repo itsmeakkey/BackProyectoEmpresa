@@ -7,20 +7,22 @@ import com.proyecto.empresa.models.Tarea;
 
 public class EmpleadoTO extends TrabajadorEmpresaTO {
 	//TODO ESTO DEBE SER TO
-	private Departamento departamento;
-	private List<Tarea> tareas;
+	private DepartamentoTO departamentoTO;
+	private List<TareaTO> tareasTO;
+	
+	
+	public DepartamentoTO getDepartamentoTO() {
+		return departamentoTO;
+	}
+	public void setDepartamentoTO(DepartamentoTO departamentoTO) {
+		this.departamentoTO = departamentoTO;
+	}
+	public List<TareaTO> getTareasTO() {
+		return tareasTO;
+	}
+	public void setTareasTO(List<TareaTO> tareasTO) {
+		this.tareasTO = tareasTO;
+	}
 
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-	public List<Tarea> getTareas() {
-		return tareas;
-	}
-	public void setTareas(List<Tarea> tareas) {
-		this.tareas = tareas;
-	}
 	
 }

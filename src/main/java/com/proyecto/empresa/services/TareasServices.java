@@ -36,9 +36,8 @@ public class TareasServices {
 	// MÉTODOS PROPIO
 	// CREAR una nueva tarea
 	public Tarea createTarea(TareaTO t) {
-		Empleado empleado = empleadoRepository.findById(t.getEmpleado().getId())
+		Empleado empleado = empleadoRepository.findById(t.getEmpleadoTO().getId())
 				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
-		t.setEmpleado(empleado);
 
 		// Creamos la tarea recibiendo los valores de TareaTO
 		Tarea tarea = new Tarea();
@@ -61,7 +60,7 @@ public class TareasServices {
 		Tarea tarea = tareasRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarea no encontrada"));
 
 		// Buscamos el empleado asignado
-		Empleado empleado = empleadoRepository.findById(t.getEmpleado().getId())
+		Empleado empleado = empleadoRepository.findById(t.getEmpleadoTO().getId())
 				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
 
 		// Asignamos los valores
