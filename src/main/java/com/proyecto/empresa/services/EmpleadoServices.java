@@ -33,7 +33,7 @@ public class EmpleadoServices {
 	}
 
 	// MÉTODOS PROPIOS
-	// Método para crear un empleado
+	// Método para CREAR un empleado
 	public Empleado createEmpleado(EmpleadoTO e) {
 		// Buscamos el departamento por ID
 		Departamento departamento = departamentoRepository.findById(e.getDepartamento().getId())
@@ -56,27 +56,32 @@ public class EmpleadoServices {
 		return empleadoRepository.save(empleado);
 	}
 
-	// Método para actualizar un empleado usando EmpleadoTO
-	public Empleado actualizarEmpleado(Long id, EmpleadoTO e) {
+	// Método para BORRAR un empleado
+	public void deleteEmpleadoById(Long idEmpleado) {
+		empleadoRepository.deleteById(idEmpleado);
+	}
+
+	// Método para ACTUALIZAR un empleado
+	public Empleado updateEmpleado(Long id, EmpleadoTO e) {
 		// Busca el empleado por id
 		Empleado empleado = empleadoRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
 
-		//Buscamos el departamento por id
+		// Buscamos el departamento por id
 		Departamento departamento = departamentoRepository.findById(e.getDepartamento().getId())
 				.orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
 
-		//Asignamos los valores	
+		// Asignamos los valores
 		empleado.setNombre(e.getNombre());
 		empleado.setEdad(e.getEdad());
 		empleado.setFecha_alta(e.getFecha_alta());
 		empleado.setFecha_baja(e.getFecha_baja());
 		empleado.setSalario(e.getSalario());
 
-		//Asignamos el departamento al empleado
+		// Asignamos el departamento al empleado
 		empleado.setDepartamento(departamento);
 
-		//Guardamos los cambios
+		// Guardamos los cambios
 		return empleadoRepository.save(empleado);
 	}
 
@@ -103,11 +108,6 @@ public class EmpleadoServices {
 	// Método para buscar empleados con salarios en un rango específico
 	public List<Empleado> findByEntreSalarios(Long salarioMin, Long salarioMax) {
 		return empleadoRepository.findBySalarioBetween(salarioMin, salarioMax);
-	}
-
-	// Eliminar un empleado
-	public void deleteEmpleadoId(Long idEmpleado) {
-		empleadoRepository.deleteById(idEmpleado);
 	}
 
 }

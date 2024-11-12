@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.services.JefeServices;
 import com.proyecto.empresa.to.JefeTO;
@@ -32,18 +34,30 @@ public class JefeController {
 //MÉTODOS COMUNES	
 	// Endpoint para obtener todos los jefes
 	@GetMapping
-	public List<Jefe> getAllJefes() {
-		return this.jefeServices.getAll();
+	public ResponseEntity<List<Jefe>> getAllJefes() {
+		List<Jefe> obtenerJefes= jefeServices.getAll();
+		//Si no existen 
+		 if (obtenerJefes.isEmpty()) {
+		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		    }
+		 //Si existen
+		return new ResponseEntity<>(obtenerJefes, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar jefes por Id
 	@GetMapping(path = "/{id}")
-	public Optional<Jefe> findById(@PathVariable("id") Long id) {
-		return this.jefeServices.findById(id);
+	public ResponseEntity<Optional<Jefe>> findById(@PathVariable("id") Long id) {
+		Optional<Jefe> obtenerJefeId = jefeServices.findById(id);
+		//Si no existen 
+		 if (obtenerJefeId.isEmpty()) {
+		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		    }
+		//Si existen
+			return new ResponseEntity<>(obtenerJefeId, HttpStatus.OK);
 	}
 
 //MÉTODOS PROPIOS   	
-	// Endpoint para crear un jefe
+	// Endpoint para CREAR un jefe
 	@PostMapping
 	public ResponseEntity<Jefe> createJefe(@RequestBody JefeTO jefeTo) {
 		// Llamada al servicio para guardar el jefe
@@ -51,6 +65,23 @@ public class JefeController {
 
 		// Devuelve una respuesta 201
 		return new ResponseEntity<>(createJefe, HttpStatus.CREATED);
+	}
+
+	// Endpoint para ACTUALIZAR un jefe
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<Jefe> updateJefe(@PathVariable("id") Long id, @RequestBody JefeTO jefeAct) {
+		// Llamada al servicio para actualizar el jefe
+		Jefe jefeActualizado = jefeServices.updateJefe(id, jefeAct);
+		// Devuelve el jefe actualizado con un código HTTP 200 OK
+		return new ResponseEntity<>(jefeActualizado, HttpStatus.OK);
+
+	}
+
+	// Endpoint para BORRAR un jefe
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<Void> deleteJefeById(@PathVariable("id") Long id) {
+		jefeServices.deleteJefeById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	// Endpoint para buscar por nombre
@@ -112,13 +143,6 @@ public class JefeController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(jefes, HttpStatus.OK);
-	}
-
-	// Endpoint para borrar un jefe
-	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<Void> borrarJefe(@PathVariable("id") Long id) {
-		jefeServices.deleteJefeId(id);
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

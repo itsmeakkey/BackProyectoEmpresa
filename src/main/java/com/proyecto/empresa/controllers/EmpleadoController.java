@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.empresa.models.Departamento;
 import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.services.EmpleadoServices;
 import com.proyecto.empresa.to.EmpleadoTO;
@@ -33,18 +34,30 @@ public class EmpleadoController {
 //MÉTODOS COMUNES
 	// Endpoint para obtener todos los empleados
 	@GetMapping
-	public List<Empleado> getAllEmpleados() {
-		return this.empleadoServices.getAll();
+	public ResponseEntity<List<Empleado>> getAllEmpleados() {
+		List<Empleado> obtenerEmpleados= empleadoServices.getAll();
+		//Si no existen 
+		 if (obtenerEmpleados.isEmpty()) {
+		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		    }
+		 //Si existen
+		return new ResponseEntity<>(obtenerEmpleados, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar empleados por Id
 	@GetMapping(path = "/{id}")
-	public Optional<Empleado> findById(@PathVariable("id") Long id) {
-		return this.empleadoServices.findById(id);
+	public ResponseEntity<Optional<Empleado>> findById(@PathVariable("id") Long id) {
+		Optional<Empleado> obtenerEmpleadoId = empleadoServices.findById(id);
+		//Si no existen 
+		 if (obtenerEmpleadoId.isEmpty()) {
+		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		    }
+		//Si existen
+			return new ResponseEntity<>(obtenerEmpleadoId, HttpStatus.OK);
 	}
 
 	// MÉTODOS PROPIOS
-	/* CREAR */
+	// Endpoint para CREAR un empleado
 	@PostMapping()
 	public ResponseEntity<Empleado> createEmpleado(@RequestBody EmpleadoTO empleadoTO) {
 		// Llamada al service para guardar el empleado
@@ -54,18 +67,17 @@ public class EmpleadoController {
 		return new ResponseEntity<>(createEmpleado, HttpStatus.CREATED);
 	}
 	
-	// Endpoint para borrar un empleado
+	// Endpoint para BORRAR un empleado por ID
 	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<Void> deleteEmpleadoId(@PathVariable("id") Long id) {
-		empleadoServices.deleteEmpleadoId(id);
+	public ResponseEntity<Void> deleteEmpleadoById(@PathVariable("id") Long id) {
+		empleadoServices.deleteEmpleadoById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	//TODO CORREGIR
-    // Endpoint para actualizar un empleado por ID usando EmpleadoTO
+    // Endpoint para ACTUALIZAR un empleado por ID
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable ("id")  Long id, @RequestBody EmpleadoTO empleadoDetalles) {
+    public ResponseEntity<Empleado> updateEmpleado(@PathVariable ("id")  Long id, @RequestBody EmpleadoTO empleadoAct) {
         // Llamada al servicio para actualizar el empleado
-        Empleado empleadoActualizado = empleadoServices.actualizarEmpleado(id, empleadoDetalles);
+        Empleado empleadoActualizado = empleadoServices.updateEmpleado(id, empleadoAct);
         
         // Devuelve el empleado actualizado con un código HTTP 200 OK
         return new ResponseEntity<>(empleadoActualizado, HttpStatus.OK);

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.models.Tarea;
 import com.proyecto.empresa.services.TareasServices;
 import com.proyecto.empresa.to.TareaTO;
@@ -34,18 +36,30 @@ public class TareasController {
 	// MÉTODOS COMUNES
 	// Endpoint para obtener todos las tareas
 	@GetMapping
-	public List<Tarea> getAllTareas() {
-		return this.tareasServices.getAll();
+	public ResponseEntity<List<Tarea>> getAllTareas() {
+		List<Tarea> obtenerTareas= tareasServices.getAll();
+		//Si no existen 
+		 if (obtenerTareas.isEmpty()) {
+		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		    }
+		 //Si existen
+		return new ResponseEntity<>(obtenerTareas, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas por Id
 	@GetMapping(path = "/{id}")
-	public Optional<Tarea> findById(@PathVariable("id") Long id) {
-		return this.tareasServices.findById(id);
+	public ResponseEntity<Optional<Tarea>> findById(@PathVariable("id") Long id) {
+		Optional<Tarea> obtenerTareaId = tareasServices.findById(id);
+		//Si no existen 
+		 if (obtenerTareaId.isEmpty()) {
+		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		    }
+		//Si existen
+			return new ResponseEntity<>(obtenerTareaId, HttpStatus.OK);
 	}
 
 	// MÉTODOS PROPIOS
-	/* CREAR */
+	// Endpoint para CREAR una tarea
 	@PostMapping()
 	public ResponseEntity<Tarea> createTarea(@RequestBody TareaTO tareaTo) {
 		// Llamada al servicio para guardar la tarea
@@ -53,6 +67,21 @@ public class TareasController {
 
 		// Devuelve una respuesta 201
 		return new ResponseEntity<>(createTarea, HttpStatus.CREATED);
+	}
+
+	// Endpoint para BORRAR una tarea
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<Void> deleteTareaById(@PathVariable("id") Long id) {
+		tareasServices.deleteTareaById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	// Endpoint para ACTUALIZAR una tarea
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<Tarea> updateTarea(@PathVariable("id") Long id, @RequestBody TareaTO TareaAct){
+		//Llamada al servicio y retorno de un código 2OO
+		Tarea tareaActualizada = tareasServices.updateTarea(id, TareaAct);
+		return new ResponseEntity<>(tareaActualizada, HttpStatus.OK);	
 	}
 
 	// Endpoint para buscar tareas asignadas a un empelado específico
@@ -142,13 +171,6 @@ public class TareasController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(tarea, HttpStatus.OK);
-	}
-
-	// Endpoint para borrar una tarea
-	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<Void> borrarTarea(@PathVariable("id") Long id) {
-		tareasServices.deleteTareaId(id);
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

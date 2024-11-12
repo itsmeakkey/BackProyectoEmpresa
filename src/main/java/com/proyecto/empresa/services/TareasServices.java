@@ -34,7 +34,7 @@ public class TareasServices {
 	}
 
 	// MÉTODOS PROPIO
-	// Crea una nueva tarea
+	// CREAR una nueva tarea
 	public Tarea createTarea(TareaTO t) {
 		Empleado empleado = empleadoRepository.findById(t.getEmpleado().getId())
 				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
@@ -53,6 +53,33 @@ public class TareasServices {
 
 		// Guardamos la tarea en BBDD
 		return tareasRepository.save(tarea);
+	}
+
+	// ACTUALIZAR una tarea
+	public Tarea updateTarea(Long id, TareaTO t) {
+		// Buscamos la tarea que queremos actualizar
+		Tarea tarea = tareasRepository.findById(id).orElseThrow(() -> new RuntimeException("Tarea no encontrada"));
+
+		// Buscamos el empleado asignado
+		Empleado empleado = empleadoRepository.findById(t.getEmpleado().getId())
+				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+		// Asignamos los valores
+		tarea.setNombreTarea(t.getNombreTarea());
+		tarea.setFechaCreacion(t.getFechaCreacion());
+		tarea.setFechaFin(t.getFechaFin());
+		tarea.setEntregadoATiempo(t.getEntregadoATiempo());
+		tarea.setFechaEstimada(t.getFechaEstimada());
+		// Asignamos el nuevo empleado
+		tarea.setEmpleado(empleado);
+
+		// Guardamos los cambios
+		return tareasRepository.save(tarea);
+	}
+
+	// BORRAR una tarea
+	public void deleteTareaById(Long idTarea) {
+		tareasRepository.deleteById(idTarea);
 	}
 
 	// Busca tareas asignadas a un empleado específico
@@ -88,11 +115,6 @@ public class TareasServices {
 	// Busca tareas creadas entre dos fechas específicas
 	public List<Tarea> findByFechaEntreCreacion(Date fechaInicio, Date fechaFin) {
 		return tareasRepository.findByFechaCreacionBetween(fechaInicio, fechaFin);
-	}
-
-	// Eliminar una tarea
-	public void deleteTareaId(Long idTarea) {
-		tareasRepository.deleteById(idTarea);
 	}
 
 }
