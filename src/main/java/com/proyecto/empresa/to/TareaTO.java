@@ -2,8 +2,6 @@ package com.proyecto.empresa.to;
 
 import java.util.Date;
 
-import com.proyecto.empresa.models.Empleado;
-
 public class TareaTO{
 	private Long id;
     private String nombreTarea;

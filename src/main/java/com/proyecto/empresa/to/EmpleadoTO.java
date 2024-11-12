@@ -2,9 +2,6 @@ package com.proyecto.empresa.to;
 
 import java.util.List;
 
-import com.proyecto.empresa.models.Departamento;
-import com.proyecto.empresa.models.Tarea;
-
 public class EmpleadoTO extends TrabajadorEmpresaTO {
 	//TODO ESTO DEBE SER TO
 	private DepartamentoTO departamentoTO;

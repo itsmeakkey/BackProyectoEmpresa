@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import com.proyecto.empresa.repositories.EmpleadoRepository;
 import com.proyecto.empresa.repositories.JefeRepository;
 import com.proyecto.empresa.repositories.TareasRepository;
+import com.proyecto.empresa.services.impl.DepartamentoServicesImpl;
+import com.proyecto.empresa.services.impl.EmpleadoServicesImpl;
+import com.proyecto.empresa.services.impl.JefeServicesImpl;
+import com.proyecto.empresa.services.impl.TareasServicesImpl;
 import com.proyecto.empresa.repositories.DepartamentoRepository;
-import com.proyecto.empresa.services.EmpleadoServices;
-import com.proyecto.empresa.services.JefeServices;
-import com.proyecto.empresa.services.TareasServices;
-import com.proyecto.empresa.services.DepartamentoServices;
 
 @Configuration
 public class AppConfig {
@@ -18,22 +18,22 @@ public class AppConfig {
 	//Inyección de dependencias de repositories a services
 	
     @Bean
-    public DepartamentoServices departamentoServices(DepartamentoRepository departamentoRepository, JefeRepository jefeRepository) {
-        return new DepartamentoServices(departamentoRepository, jefeRepository);
+    public DepartamentoServicesImpl departamentoServices(DepartamentoRepository departamentoRepository, JefeRepository jefeRepository) {
+        return new DepartamentoServicesImpl(departamentoRepository, jefeRepository);
     }
 
     @Bean
-    public EmpleadoServices empleadoServices(EmpleadoRepository empleadoRepository, DepartamentoRepository departamentoRepository) {
-        return new EmpleadoServices(empleadoRepository, departamentoRepository);
+    public EmpleadoServicesImpl empleadoServices(EmpleadoRepository empleadoRepository, DepartamentoRepository departamentoRepository) {
+        return new EmpleadoServicesImpl(empleadoRepository, departamentoRepository);
     }
 
     @Bean
-    public JefeServices jefeServices(JefeRepository jefeRepository) {
-        return new JefeServices(jefeRepository);
+    public JefeServicesImpl jefeServices(JefeRepository jefeRepository) {
+        return new JefeServicesImpl(jefeRepository);
     }
 
     @Bean
-    public TareasServices tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
-        return new TareasServices(tareasRepository, empleadoRepository);
+    public TareasServicesImpl tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
+        return new TareasServicesImpl(tareasRepository, empleadoRepository);
     }
 }

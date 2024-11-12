@@ -15,19 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.empresa.models.Departamento;
 import com.proyecto.empresa.models.Empleado;
-import com.proyecto.empresa.services.EmpleadoServices;
+import com.proyecto.empresa.services.impl.EmpleadoServicesImpl;
 import com.proyecto.empresa.to.EmpleadoTO;
 
 @RestController
 @RequestMapping("/api/empleados")
 public class EmpleadoController {
 
-	private final EmpleadoServices empleadoServices;
+	private final EmpleadoServicesImpl empleadoServices;
 
 	@Autowired
-	public EmpleadoController(EmpleadoServices empleadoServices) {
+	public EmpleadoController(EmpleadoServicesImpl empleadoServices) {
 		this.empleadoServices = empleadoServices;
 	}
 

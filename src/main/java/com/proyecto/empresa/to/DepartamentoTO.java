@@ -2,9 +2,6 @@ package com.proyecto.empresa.to;
 
 import java.util.List;
 
-import com.proyecto.empresa.models.Empleado;
-import com.proyecto.empresa.models.Jefe;
-
 public class DepartamentoTO {
 	private Long id;
 	private String nombre;
