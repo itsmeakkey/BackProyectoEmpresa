@@ -5,7 +5,7 @@ import java.util.List;
 public class DepartamentoTO {
 	private Long id;
 	private String nombre;
-	//TODO Este jefe debe ser JEFETO
+	// Este jefe debe ser JEFETO
 	private JefeTO jefeTO;
 	private List<EmpleadoTO> empleados;
 
@@ -40,6 +40,5 @@ public class DepartamentoTO {
 	public void setEmpleados(List<EmpleadoTO> empleados) {
 		this.empleados = empleados;
 	}
-
 
 }

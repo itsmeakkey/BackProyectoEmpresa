@@ -6,5 +6,5 @@ import com.proyecto.empresa.models.Jefe;
 
 @Repository
 public interface JefeRepository extends TrabajadorRepository<Jefe> {
-	
+
 }

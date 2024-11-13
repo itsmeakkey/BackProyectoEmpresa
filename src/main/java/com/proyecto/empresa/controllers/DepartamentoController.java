@@ -57,7 +57,7 @@ public class DepartamentoController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		// Conversión de de Departamento a DepartamentoTO con el mapper
-		DepartamentoTO departamentoTO = departamentoMapper.convertirADepartamentoTO(obtenerDepartamentoId.get());//Preguntar
+		DepartamentoTO departamentoTO = departamentoMapper.convertirADepartamentoTO(obtenerDepartamentoId.get());// Preguntar
 		return new ResponseEntity<>(departamentoTO, HttpStatus.OK);
 	}
 
@@ -66,7 +66,7 @@ public class DepartamentoController {
 	@PostMapping()
 	public ResponseEntity<DepartamentoTO> createDepartamento(@RequestBody DepartamentoTO d) {
 		Departamento createDepartamento = departamentoServices.createDepartamento(d);
-		//Lo convertimos a departamentoTO con el mapper
+		// Lo convertimos a departamentoTO con el mapper
 		DepartamentoTO departamentoTO = departamentoMapper.convertirADepartamentoTO(createDepartamento);
 
 		return new ResponseEntity<>(departamentoTO, HttpStatus.CREATED);
@@ -78,7 +78,7 @@ public class DepartamentoController {
 			@RequestBody DepartamentoTO departamentoAct) {
 		// Llamada al servicio para actualizar el empleado
 		Departamento departamentoActualizado = departamentoServices.updateDepartamento(id, departamentoAct);
-		
+
 		// Convertimos Departamento a DepartamentoTO
 		DepartamentoTO departamentoTO = departamentoMapper.convertirADepartamentoTO(departamentoActualizado);
 
@@ -86,7 +86,8 @@ public class DepartamentoController {
 		return new ResponseEntity<>(departamentoTO, HttpStatus.OK);
 	}
 
-	// Endpoint para BORRAR un departamento (No necesita conversión porque solo usamos el id)
+	// Endpoint para BORRAR un departamento (No necesita conversión porque solo
+	// usamos el id)
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Void> deleteDepartamentoById(@PathVariable("id") Long id) {
 		departamentoServices.deleteDepartamentoById(id);

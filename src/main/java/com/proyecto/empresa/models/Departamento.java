@@ -20,13 +20,12 @@ public class Departamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
-	
+
 	// Relación de muchos a uno entre Departamento y Jefe
-	
+
 	@ManyToOne
 	@JoinColumn(name = "jefe_id") // Clave foránea
 	private Jefe jefe;
-	
 
 	// Relación uno a muchos entre Departamento y Empleado
 	@OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL, orphanRemoval = true)

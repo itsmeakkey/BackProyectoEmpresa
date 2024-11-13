@@ -9,50 +9,51 @@ public class TrabajadorEmpresaTO {
 	protected Date fechaAlta;
 	protected Date fechaBaja;
 	protected Long salario;
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public Integer getEdad() {
 		return edad;
 	}
-	
+
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
-	
+
 	public Date getfechaAlta() {
 		return fechaAlta;
 	}
-	
-	public void setFecha_alta(Date fechaAlta) {
+
+	public void setfechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
-	
+
 	public Date getfechaBaja() {
 		return fechaBaja;
 	}
-	
-	public void setFecha_baja(Date fechaBaja) {
+
+	public void setfechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
 	}
-	
+
 	public Long getSalario() {
 		return salario;
 	}
-	
+
 	public void setSalario(Long salario) {
 		this.salario = salario;
 	}

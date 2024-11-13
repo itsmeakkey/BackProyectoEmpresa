@@ -9,11 +9,11 @@ import com.proyecto.empresa.to.JefeTO;
 
 @Mapper
 public interface JefeMapper {
-	
-	//Método para convetir Jefe a JefeTO
+
+	// Convertimos Jefe a JefeTo
 	JefeTO convertirAJefeTO(Jefe jefe);
-	
-	//Método para convetir Jefe a lista JefeTO
-	List<JefeTO> convertirListaAJefeTO(List<Jefe> jefe);	
+
+	// Convertimos Lista a ListaTO
+	List<JefeTO> convertirListaAJefeTO(List<Jefe> jefe);
 
 }

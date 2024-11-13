@@ -8,14 +8,22 @@ import com.proyecto.empresa.to.JefeTO;
 
 public interface JefeServices {
 	List<Jefe> getAll();
+
 	Optional<Jefe> findById(Long id);
-	
+
 	Jefe createJefe(JefeTO j);
+
 	void deleteJefeById(Long idJefe);
+
 	Jefe updateJefe(Long id, JefeTO j);
+
 	List<Jefe> findByNombre(String nombre);
+
 	List<Jefe> findByEdad(int edad);
+
 	List<Jefe> findBySuperiorASalario(Long salario);
+
 	List<Jefe> findByInferiorASalario(Long salario);
+
 	List<Jefe> findByEntreSalarios(Long salarioMin, Long salarioMax);
 }

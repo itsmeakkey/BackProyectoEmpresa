@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.empresa.mappers.TareaMapper;
 import com.proyecto.empresa.models.Tarea;
 import com.proyecto.empresa.services.TareasServices;
-import com.proyecto.empresa.to.EmpleadoTO;
 import com.proyecto.empresa.to.TareaTO;
 
 @RestController
@@ -29,7 +28,7 @@ public class TareasController {
 
 	private final TareasServices tareasServices;
 	private final TareaMapper tareaMapper;
-	
+
 	@Autowired
 	public TareasController(TareasServices tareasServices, TareaMapper tareaMapper) {
 		this.tareasServices = tareasServices;
@@ -40,13 +39,13 @@ public class TareasController {
 	// Endpoint para obtener todos las tareas
 	@GetMapping
 	public ResponseEntity<List<TareaTO>> getAllTareas() {
-		List<Tarea> obtenerTareas= tareasServices.getAll();
-		//Si no existen 
-		 if (obtenerTareas.isEmpty()) {
-		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		    }
-		 //Si existen
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(obtenerTareas);
+		List<Tarea> obtenerTareas = tareasServices.getAll();
+		// Si no existen
+		if (obtenerTareas.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		// Si existen
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(obtenerTareas);
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
@@ -54,14 +53,14 @@ public class TareasController {
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<TareaTO> findById(@PathVariable("id") Long id) {
 		Optional<Tarea> obtenerTareaId = tareasServices.findById(id);
-		//Si no existen 
-		 if (obtenerTareaId.isEmpty()) {
-		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		    }
-		//Si existen
-		 TareaTO tareaTO = tareaMapper.convertirATareaTO(obtenerTareaId.get());
+		// Si no existen
+		if (obtenerTareaId.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		// Si existen
+		TareaTO tareaTO = tareaMapper.convertirATareaTO(obtenerTareaId.get());
 
-			return new ResponseEntity<>(tareaTO, HttpStatus.OK);
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// MÉTODOS PROPIOS
@@ -72,7 +71,7 @@ public class TareasController {
 		Tarea createTarea = tareasServices.createTarea(tareaTo);
 
 		// Devuelve una respuesta 201
-		 TareaTO tareaTO = tareaMapper.convertirATareaTO(createTarea);
+		TareaTO tareaTO = tareaMapper.convertirATareaTO(createTarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.CREATED);
 	}
@@ -83,17 +82,17 @@ public class TareasController {
 		tareasServices.deleteTareaById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	// Endpoint para ACTUALIZAR una tarea
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<TareaTO> updateTarea(@PathVariable("id") Long id, @RequestBody TareaTO TareaAct){
-		//Llamada al servicio y retorno de un código 2OO
+	public ResponseEntity<TareaTO> updateTarea(@PathVariable("id") Long id, @RequestBody TareaTO TareaAct) {
+		// Llama al servicio y devuelve un código 2OO
 		Tarea tareaActualizada = tareasServices.updateTarea(id, TareaAct);
-		 TareaTO tareaTO = tareaMapper.convertirATareaTO(tareaActualizada);
-		return new ResponseEntity<>(tareaTO, HttpStatus.OK);	
+		TareaTO tareaTO = tareaMapper.convertirATareaTO(tareaActualizada);
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
-	// Endpoint para buscar tareas asignadas a un empelado específico
+	// Endpoint para buscar tareas asignadas a un empleado específico
 	@GetMapping(path = "/tarea/{empleadoId}")
 	public ResponseEntity<List<TareaTO>> findByEmpleadoId(@PathVariable("empleadoId") Long id) {
 		// Llamada al servicio para buscar la tarea
@@ -102,7 +101,7 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
@@ -116,7 +115,7 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
@@ -130,7 +129,7 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
@@ -144,7 +143,7 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
@@ -160,7 +159,7 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
@@ -175,7 +174,7 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
@@ -191,7 +190,7 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+		List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
 
 		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}

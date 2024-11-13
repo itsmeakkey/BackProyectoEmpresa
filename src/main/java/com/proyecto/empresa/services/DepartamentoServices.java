@@ -12,5 +12,6 @@ public interface DepartamentoServices {
 	
 	Departamento createDepartamento(DepartamentoTO d);
 	void deleteDepartamentoById(Long id);
+
 	Departamento updateDepartamento(Long id, DepartamentoTO d);
 }

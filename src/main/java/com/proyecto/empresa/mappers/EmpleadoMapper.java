@@ -3,17 +3,20 @@ package com.proyecto.empresa.mappers;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.to.EmpleadoTO;
-@Mapper
+
+@Mapper(uses = { DepartamentoMapper.class })
 public interface EmpleadoMapper {
-	
-	//Método para convertir Empleado a EmpleadoTO
+
+	@Mapping(source = "departamento", target = "departamentoTO")
+
+	// Convertimos Empleado a EmpleadoTO
 	EmpleadoTO convertirAEmpleadoTO(Empleado empleado);
-	
-	//Método para convetir de Empleado a una lista de EmpleadoTO
-	List<EmpleadoTO> convertirListaAEmpleadoTO(List<Empleado> empleado);	
+
+	// Convertimos Lista a ListaTO
+	List<EmpleadoTO> convertirListaAEmpleadoTO(List<Empleado> empleado);
 
 }
-	

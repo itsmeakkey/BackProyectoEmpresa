@@ -3,8 +3,6 @@ package com.proyecto.empresa.models;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -20,27 +18,27 @@ public class Empleado extends TrabajadorEmpresa {
 		super(nombre, edad, fechaAlta, fechaBaja, salario);
 
 	}
-	
-	//Constructor vacio 
+
+	// Constructor vacio
 	public Empleado() {
-		
+
 	}
 
 	// Relación muchos a uno con Departamento
 	@ManyToOne
 	@JoinColumn(name = "departamento_id") // Clave foránea en la tabla empleado
-	//TODO QUITAR CUANDO CORRIJAMOS LOS CONTROLADORES CON MAPPER
-	//@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
+	// @JsonIgnore vita que el departamento se serialice en el JSON del Empleado
+	// para que no haga un ciclo infinito
 	private Departamento departamento;
+
 	public Departamento getDepartamento() {
 		return departamento;
 	}
 
-	
 	// Relación uno a muchos con Tareas
 	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Tarea> tareas;
-	
+
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}

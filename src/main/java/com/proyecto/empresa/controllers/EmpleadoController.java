@@ -26,40 +26,39 @@ public class EmpleadoController {
 
 	private final EmpleadoServices empleadoServices;
 	private final EmpleadoMapper empleadoMapper;
+
 	@Autowired
 	public EmpleadoController(EmpleadoServices empleadoServices, EmpleadoMapper empleadoMapper) {
 		this.empleadoServices = empleadoServices;
-		this.empleadoMapper =empleadoMapper;
+		this.empleadoMapper = empleadoMapper;
 	}
 
 //MÉTODOS COMUNES
 	// Endpoint para obtener todos los empleados
 	@GetMapping
 	public ResponseEntity<List<EmpleadoTO>> getAllEmpleados() {
-		List<Empleado> obtenerEmpleados= empleadoServices.getAll();
-		//Si no existen 
-		 if (obtenerEmpleados.isEmpty()) {
-		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		    }
-		 List<EmpleadoTO> empleadoTO = empleadoMapper.convertirListaAEmpleadoTO(obtenerEmpleados);
-			return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
-			
-			
-		
+		List<Empleado> obtenerEmpleados = empleadoServices.getAll();
+		// Si no existen
+		if (obtenerEmpleados.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		List<EmpleadoTO> empleadoTO = empleadoMapper.convertirListaAEmpleadoTO(obtenerEmpleados);
+		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
+
 	}
 
 	// Endpoint para buscar empleados por Id
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<EmpleadoTO> findById(@PathVariable("id") Long id) {
 		Optional<Empleado> obtenerEmpleadoId = empleadoServices.findById(id);
-		//Si no existen 
-		 if (obtenerEmpleadoId.isEmpty()) {
-		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		    }
-		//Si existen
-			EmpleadoTO empleadoTO = empleadoMapper.convertirAEmpleadoTO(obtenerEmpleadoId.get());//Preguntar
+		// Si no existen
+		if (obtenerEmpleadoId.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		// Si existen
+		EmpleadoTO empleadoTO = empleadoMapper.convertirAEmpleadoTO(obtenerEmpleadoId.get());// Preguntar
 
-			return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
+		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
 	}
 
 	// MÉTODOS PROPIOS
@@ -73,23 +72,24 @@ public class EmpleadoController {
 		EmpleadoTO eTO = empleadoMapper.convertirAEmpleadoTO(createEmpleado);
 		return new ResponseEntity<>(eTO, HttpStatus.CREATED);
 	}
-	
+
 	// Endpoint para BORRAR un empleado por ID
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Void> deleteEmpleadoById(@PathVariable("id") Long id) {
 		empleadoServices.deleteEmpleadoById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-    // Endpoint para ACTUALIZAR un empleado por ID
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<EmpleadoTO> updateEmpleado(@PathVariable ("id")  Long id, @RequestBody EmpleadoTO empleadoAct) {
-        // Llamada al servicio para actualizar el empleado
-        Empleado empleadoActualizado = empleadoServices.updateEmpleado(id, empleadoAct);
-        
-        // Devuelve el empleado actualizado con un código HTTP 200 OK
-        EmpleadoTO empleadoTO =empleadoMapper.convertirAEmpleadoTO(empleadoActualizado);
-        return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
-    }
+
+	// Endpoint para ACTUALIZAR un empleado por ID
+	@PutMapping(path = "/{id}")
+	public ResponseEntity<EmpleadoTO> updateEmpleado(@PathVariable("id") Long id, @RequestBody EmpleadoTO empleadoAct) {
+		// Llamada al servicio para actualizar el empleado
+		Empleado empleadoActualizado = empleadoServices.updateEmpleado(id, empleadoAct);
+
+		// Devuelve el empleado actualizado con un código HTTP 200 OK
+		EmpleadoTO empleadoTO = empleadoMapper.convertirAEmpleadoTO(empleadoActualizado);
+		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
+	}
 
 	// Endpoint para buscar por nombre
 	@GetMapping(path = "/nombre/{nombre}")
@@ -100,7 +100,7 @@ public class EmpleadoController {
 		if (empleado.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<EmpleadoTO> empleadoTO =empleadoMapper.convertirListaAEmpleadoTO(empleado);
+		List<EmpleadoTO> empleadoTO = empleadoMapper.convertirListaAEmpleadoTO(empleado);
 		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
 	}
 
@@ -113,7 +113,7 @@ public class EmpleadoController {
 		if (empleado.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<EmpleadoTO> empleadoTO =empleadoMapper.convertirListaAEmpleadoTO(empleado);
+		List<EmpleadoTO> empleadoTO = empleadoMapper.convertirListaAEmpleadoTO(empleado);
 		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
 	}
 
@@ -126,7 +126,7 @@ public class EmpleadoController {
 		if (empleado.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<EmpleadoTO> empleadoTO =empleadoMapper.convertirListaAEmpleadoTO(empleado);
+		List<EmpleadoTO> empleadoTO = empleadoMapper.convertirListaAEmpleadoTO(empleado);
 		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
 	}
 
@@ -139,7 +139,7 @@ public class EmpleadoController {
 		if (empleado.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<EmpleadoTO> empleadoTO =empleadoMapper.convertirListaAEmpleadoTO(empleado);
+		List<EmpleadoTO> empleadoTO = empleadoMapper.convertirListaAEmpleadoTO(empleado);
 		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
 	}
 
@@ -151,10 +151,8 @@ public class EmpleadoController {
 		if (empleado.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		List<EmpleadoTO> empleadoTO =empleadoMapper.convertirListaAEmpleadoTO(empleado);
+		List<EmpleadoTO> empleadoTO = empleadoMapper.convertirListaAEmpleadoTO(empleado);
 		return new ResponseEntity<>(empleadoTO, HttpStatus.OK);
 	}
-
-	
 
 }

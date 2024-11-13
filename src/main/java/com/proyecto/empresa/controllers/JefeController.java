@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.empresa.mappers.JefeMapper;
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.services.JefeServices;
-import com.proyecto.empresa.to.EmpleadoTO;
 import com.proyecto.empresa.to.JefeTO;
 
 @RestController
@@ -26,7 +25,8 @@ import com.proyecto.empresa.to.JefeTO;
 public class JefeController {
 
 	private final JefeServices jefeServices;
-	private final  JefeMapper jefeMapper;
+	private final JefeMapper jefeMapper;
+
 	@Autowired
 	public JefeController(JefeServices jefeServices, JefeMapper jefeMapper) {
 		this.jefeServices = jefeServices;
@@ -37,13 +37,13 @@ public class JefeController {
 	// Endpoint para obtener todos los jefes
 	@GetMapping
 	public ResponseEntity<List<JefeTO>> getAllJefes() {
-		List<Jefe> obtenerJefes= jefeServices.getAll();
-		//Si no existen 
-		 if (obtenerJefes.isEmpty()) {
-		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		    }
-		 //Si existen
-		 List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(obtenerJefes);
+		List<Jefe> obtenerJefes = jefeServices.getAll();
+		// Si no existen
+		if (obtenerJefes.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		// Si existen
+		List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(obtenerJefes);
 		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 	}
 
@@ -51,13 +51,13 @@ public class JefeController {
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<JefeTO> findById(@PathVariable("id") Long id) {
 		Optional<Jefe> obtenerJefeId = jefeServices.findById(id);
-		//Si no existen 
-		 if (obtenerJefeId.isEmpty()) {
-		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		    }
-		//Si existen
-		 JefeTO jefeTO = jefeMapper.convertirAJefeTO(obtenerJefeId.get());
-			return new ResponseEntity<>(jefeTO, HttpStatus.OK);
+		// Si no existen
+		if (obtenerJefeId.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		// Si existen
+		JefeTO jefeTO = jefeMapper.convertirAJefeTO(obtenerJefeId.get());
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 	}
 
 //MÉTODOS PROPIOS   	
@@ -68,7 +68,7 @@ public class JefeController {
 		Jefe createJefe = jefeServices.createJefe(jefeTo);
 
 		// Devuelve una respuesta 201
-		 JefeTO jefeTO = jefeMapper.convertirAJefeTO(createJefe);
+		JefeTO jefeTO = jefeMapper.convertirAJefeTO(createJefe);
 
 		return new ResponseEntity<>(jefeTO, HttpStatus.CREATED);
 	}
@@ -79,7 +79,7 @@ public class JefeController {
 		// Llamada al servicio para actualizar el jefe
 		Jefe jefeActualizado = jefeServices.updateJefe(id, jefeAct);
 		// Devuelve el jefe actualizado con un código HTTP 200 OK
-		 JefeTO jefeTO = jefeMapper.convertirAJefeTO(jefeActualizado);
+		JefeTO jefeTO = jefeMapper.convertirAJefeTO(jefeActualizado);
 
 		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 

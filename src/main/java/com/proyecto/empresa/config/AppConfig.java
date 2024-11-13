@@ -23,45 +23,49 @@ import com.proyecto.empresa.services.impl.TareasServicesImpl;
 
 @Configuration
 public class AppConfig {
-	
-	//Inyección de dependencias de repositories a ServicesImpl
-	
-    @Bean
-    public DepartamentoServices departamentoServices(DepartamentoRepository departamentoRepository, JefeRepository jefeRepository) {
-        return new DepartamentoServicesImpl(departamentoRepository, jefeRepository);
-    }
 
-    @Bean
-    public EmpleadoServices empleadoServices(EmpleadoRepository empleadoRepository, DepartamentoRepository departamentoRepository) {
-        return new EmpleadoServicesImpl(empleadoRepository, departamentoRepository);
-    }
+	// Inyección de dependencias de repositories a ServicesImpl
 
-    @Bean
-    public JefeServices jefeServices(JefeRepository jefeRepository) {
-        return new JefeServicesImpl(jefeRepository);
-    }
+	@Bean
+	public DepartamentoServices departamentoServices(DepartamentoRepository departamentoRepository,
+			JefeRepository jefeRepository) {
+		return new DepartamentoServicesImpl(departamentoRepository, jefeRepository);
+	}
 
-    @Bean
-    public TareasServices tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
-        return new TareasServicesImpl(tareasRepository, empleadoRepository);
-    }
-    //Inyección de Mappers
-    @Bean
-    public DepartamentoMapper departamentoMapper() {
-        return Mappers.getMapper(DepartamentoMapper.class);
-    }
-    @Bean
-    public EmpleadoMapper empleadoMapper() {
-    	return Mappers.getMapper(EmpleadoMapper.class);
-    }
-    
-    @Bean
-    public JefeMapper jefeMapper() {
-    	return Mappers.getMapper(JefeMapper.class);
-    }
-    
-    @Bean
-    public TareaMapper tareaMapper() {
-    	return Mappers.getMapper(TareaMapper.class);
-    }
+	@Bean
+	public EmpleadoServices empleadoServices(EmpleadoRepository empleadoRepository,
+			DepartamentoRepository departamentoRepository) {
+		return new EmpleadoServicesImpl(empleadoRepository, departamentoRepository);
+	}
+
+	@Bean
+	public JefeServices jefeServices(JefeRepository jefeRepository) {
+		return new JefeServicesImpl(jefeRepository);
+	}
+
+	@Bean
+	public TareasServices tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
+		return new TareasServicesImpl(tareasRepository, empleadoRepository);
+	}
+
+	// Inyección de Mappers
+	@Bean
+	public DepartamentoMapper departamentoMapper() {
+		return Mappers.getMapper(DepartamentoMapper.class);
+	}
+
+	@Bean
+	public EmpleadoMapper empleadoMapper() {
+		return Mappers.getMapper(EmpleadoMapper.class);
+	}
+
+	@Bean
+	public JefeMapper jefeMapper() {
+		return Mappers.getMapper(JefeMapper.class);
+	}
+
+	@Bean
+	public TareaMapper tareaMapper() {
+		return Mappers.getMapper(TareaMapper.class);
+	}
 }
