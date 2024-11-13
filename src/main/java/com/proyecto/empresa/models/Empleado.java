@@ -16,8 +16,8 @@ import jakarta.persistence.Table;
 @Table(name = "empleado")
 public class Empleado extends TrabajadorEmpresa {
 
-	public Empleado(String nombre, Integer edad, Date fecha_alta, Date fecha_baja, Long salario) {
-		super(nombre, edad, fecha_alta, fecha_baja, salario);
+	public Empleado(String nombre, Integer edad, Date fechaAlta, Date fechaBaja, Long salario) {
+		super(nombre, edad, fechaAlta, fechaBaja, salario);
 
 	}
 	
@@ -29,6 +29,7 @@ public class Empleado extends TrabajadorEmpresa {
 	// Relación muchos a uno con Departamento
 	@ManyToOne
 	@JoinColumn(name = "departamento_id") // Clave foránea en la tabla empleado
+	//TODO QUITAR CUANDO CORRIJAMOS LOS CONTROLADORES CON MAPPER
 	@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
 	private Departamento departamento;
 	public Departamento getDepartamento() {

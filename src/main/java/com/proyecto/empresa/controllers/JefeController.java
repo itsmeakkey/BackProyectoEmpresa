@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.empresa.models.Jefe;
-import com.proyecto.empresa.services.impl.JefeServicesImpl;
+import com.proyecto.empresa.services.JefeServices;
 import com.proyecto.empresa.to.JefeTO;
 
 @RestController
 @RequestMapping("/api/jefes")
 public class JefeController {
 
-	private final JefeServicesImpl jefeServices;
+	private final JefeServices jefeServices;
 
 	@Autowired
-	public JefeController(JefeServicesImpl jefeServices) {
+	public JefeController(JefeServices jefeServices) {
 		this.jefeServices = jefeServices;
 	}
 

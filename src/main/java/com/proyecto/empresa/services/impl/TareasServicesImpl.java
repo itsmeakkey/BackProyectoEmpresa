@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
 import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.models.Tarea;
 import com.proyecto.empresa.repositories.EmpleadoRepository;
@@ -13,7 +11,6 @@ import com.proyecto.empresa.repositories.TareasRepository;
 import com.proyecto.empresa.services.TareasServices;
 import com.proyecto.empresa.to.TareaTO;
 
-@Service
 public class TareasServicesImpl implements TareasServices {
 
 	// No se necesita Autowired porque manejamos las inyecciones con beans desde

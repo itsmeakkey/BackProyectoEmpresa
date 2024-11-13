@@ -14,8 +14,8 @@ public abstract class TrabajadorEmpresa {
     protected Long id;
 	protected String nombre;
 	protected Integer edad;
-	protected Date fecha_alta;
-	protected Date fecha_baja;
+	protected Date fechaAlta;
+	protected Date fechaBaja;
 	protected Long salario;
 	
     //Constructor vacío para JPA
@@ -27,8 +27,8 @@ public abstract class TrabajadorEmpresa {
 	public TrabajadorEmpresa(String nombre, Integer edad, Date fecha_alta, Date fecha_baja, Long salario) {
 		this.nombre = nombre;
 		this.edad = edad;
-		this.fecha_alta = fecha_alta;
-		this.fecha_baja = fecha_baja;
+		this.fechaAlta = fecha_alta;
+		this.fechaBaja = fecha_baja;
 		this.salario = salario;
 	}
 	
@@ -57,20 +57,20 @@ public abstract class TrabajadorEmpresa {
 		this.edad = edad;
 	}
 
-	public Date getFecha_alta() {
-		return fecha_alta;
+	public Date getfechaAlta() {
+		return fechaAlta;
 	}
 
-	public void setFecha_alta(Date fecha_alta) {
-		this.fecha_alta = fecha_alta;
+	public void setfechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
 
-	public Date getFecha_baja() {
-		return fecha_baja;
+	public Date getfechaBaja() {
+		return fechaBaja;
 	}
 
-	public void setFecha_baja(Date fecha_baja) {
-		this.fecha_baja = fecha_baja;
+	public void setfechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
 	}
 
 	public Long getSalario() {

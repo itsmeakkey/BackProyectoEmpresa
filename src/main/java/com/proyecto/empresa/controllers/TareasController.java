@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.empresa.models.Tarea;
-import com.proyecto.empresa.services.impl.TareasServicesImpl;
+import com.proyecto.empresa.services.TareasServices;
 import com.proyecto.empresa.to.TareaTO;
 
 @RestController
 @RequestMapping("/api/tareas")
 public class TareasController {
 
-	private final TareasServicesImpl tareasServices;
+	private final TareasServices tareasServices;
 
 	@Autowired
-	public TareasController(TareasServicesImpl tareasServices) {
+	public TareasController(TareasServices tareasServices) {
 		this.tareasServices = tareasServices;
 	}
 

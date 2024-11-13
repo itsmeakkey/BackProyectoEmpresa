@@ -2,9 +2,6 @@ package com.proyecto.empresa.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.proyecto.empresa.models.Departamento;
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.repositories.DepartamentoRepository;
@@ -12,7 +9,7 @@ import com.proyecto.empresa.repositories.JefeRepository;
 import com.proyecto.empresa.services.DepartamentoServices;
 import com.proyecto.empresa.to.DepartamentoTO;
 
-@Service
+
 public class DepartamentoServicesImpl implements DepartamentoServices {
 
 	// No se necesita Autowired porque manejamos las inyecciones con beans desde

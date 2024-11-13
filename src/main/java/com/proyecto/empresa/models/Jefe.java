@@ -19,8 +19,8 @@ public class Jefe extends TrabajadorEmpresa {
 
 	private Date fechaJefe;
 
-	public Jefe(String nombre, Integer edad, Date fecha_alta, Date fecha_baja, Long salario) {
-		super(nombre, edad, fecha_alta, fecha_baja, salario);
+	public Jefe(String nombre, Integer edad, Date fechAlta, Date fechaBaja, Long salario) {
+		super(nombre, edad, fechAlta, fechaBaja, salario);
 		// TODO Auto-generated constructor stub
 	}
 

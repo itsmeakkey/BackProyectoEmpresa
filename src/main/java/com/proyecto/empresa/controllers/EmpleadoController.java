@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.empresa.models.Empleado;
-import com.proyecto.empresa.services.impl.EmpleadoServicesImpl;
+import com.proyecto.empresa.services.EmpleadoServices;
 import com.proyecto.empresa.to.EmpleadoTO;
 
 @RestController
 @RequestMapping("/api/empleados")
 public class EmpleadoController {
 
-	private final EmpleadoServicesImpl empleadoServices;
+	private final EmpleadoServices empleadoServices;
 
 	@Autowired
-	public EmpleadoController(EmpleadoServicesImpl empleadoServices) {
+	public EmpleadoController(EmpleadoServices empleadoServices) {
 		this.empleadoServices = empleadoServices;
 	}
 

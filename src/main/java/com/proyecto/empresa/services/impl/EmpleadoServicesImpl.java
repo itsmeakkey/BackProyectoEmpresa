@@ -2,9 +2,6 @@ package com.proyecto.empresa.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import com.proyecto.empresa.models.Departamento;
 import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.repositories.DepartamentoRepository;
@@ -12,7 +9,7 @@ import com.proyecto.empresa.repositories.EmpleadoRepository;
 import com.proyecto.empresa.services.EmpleadoServices;
 import com.proyecto.empresa.to.EmpleadoTO;
 
-@Service
+
 public class EmpleadoServicesImpl implements EmpleadoServices{
 
 	// No se necesita Autowired porque manejamos las inyecciones con beans desde
@@ -51,8 +48,8 @@ public class EmpleadoServicesImpl implements EmpleadoServices{
 
 		empleado.setNombre(e.getNombre());
 		empleado.setEdad(e.getEdad());
-		empleado.setFecha_alta(e.getFecha_alta());
-		empleado.setFecha_baja(e.getFecha_baja());
+		empleado.setfechaAlta(e.getfechaAlta());
+		empleado.setfechaBaja(e.getfechaBaja());
 		empleado.setSalario(e.getSalario());
 
 		// Asigno el departamento al empleado
@@ -82,8 +79,8 @@ public class EmpleadoServicesImpl implements EmpleadoServices{
 		// Asignamos los valores
 		empleado.setNombre(e.getNombre());
 		empleado.setEdad(e.getEdad());
-		empleado.setFecha_alta(e.getFecha_alta());
-		empleado.setFecha_baja(e.getFecha_baja());
+		empleado.setfechaAlta(e.getfechaAlta());
+		empleado.setfechaAlta(e.getfechaBaja());
 		empleado.setSalario(e.getSalario());
 
 		// Asignamos el departamento al empleado

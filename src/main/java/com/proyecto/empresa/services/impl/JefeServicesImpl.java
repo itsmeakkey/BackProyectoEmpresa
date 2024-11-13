@@ -3,14 +3,13 @@ package com.proyecto.empresa.services.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
 
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.repositories.JefeRepository;
 import com.proyecto.empresa.services.JefeServices;
 import com.proyecto.empresa.to.JefeTO;
 
-@Service
+
 public class JefeServicesImpl implements JefeServices{
 	private final JefeRepository jefeRepository;
 
@@ -38,8 +37,8 @@ public class JefeServicesImpl implements JefeServices{
 		Jefe jefe = new Jefe();
 		jefe.setNombre(j.getNombre());
 		jefe.setEdad(j.getEdad());
-		jefe.setFecha_alta(j.getFecha_alta());
-		jefe.setFecha_baja(j.getFecha_baja());
+		jefe.setfechaAlta(j.getfechaAlta());
+		jefe.setfechaAlta(j.getfechaBaja());
 		jefe.setSalario(j.getSalario());
 		jefe.setFechaJefe(j.getFechaJefe());
 
@@ -55,8 +54,8 @@ public class JefeServicesImpl implements JefeServices{
 		// Asignamos los datos
 		jefe.setNombre(j.getNombre());
 		jefe.setEdad(j.getEdad());
-		jefe.setFecha_alta(j.getFecha_alta());
-		jefe.setFecha_baja(j.getFecha_baja());
+		jefe.setfechaAlta(j.getfechaAlta());
+		jefe.setfechaBaja(j.getfechaBaja());
 		jefe.setSalario(j.getSalario());
 		jefe.setFechaJefe(j.getFechaJefe());
 
