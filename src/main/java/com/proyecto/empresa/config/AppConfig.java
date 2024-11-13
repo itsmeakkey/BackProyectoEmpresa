@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.proyecto.empresa.mappers.DepartamentoMapper;
+import com.proyecto.empresa.mappers.EmpleadoMapper;
+import com.proyecto.empresa.mappers.JefeMapper;
+import com.proyecto.empresa.mappers.TareaMapper;
 import com.proyecto.empresa.repositories.DepartamentoRepository;
 import com.proyecto.empresa.repositories.EmpleadoRepository;
 import com.proyecto.empresa.repositories.JefeRepository;
@@ -42,9 +45,23 @@ public class AppConfig {
     public TareasServices tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
         return new TareasServicesImpl(tareasRepository, empleadoRepository);
     }
-    
+    //Inyección de Mappers
     @Bean
     public DepartamentoMapper departamentoMapper() {
         return Mappers.getMapper(DepartamentoMapper.class);
+    }
+    @Bean
+    public EmpleadoMapper empleadoMapper() {
+    	return Mappers.getMapper(EmpleadoMapper.class);
+    }
+    
+    @Bean
+    public JefeMapper jefeMapper() {
+    	return Mappers.getMapper(JefeMapper.class);
+    }
+    
+    @Bean
+    public TareaMapper tareaMapper() {
+    	return Mappers.getMapper(TareaMapper.class);
     }
 }

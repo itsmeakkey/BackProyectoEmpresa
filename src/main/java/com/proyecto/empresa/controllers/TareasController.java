@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.empresa.mappers.TareaMapper;
 import com.proyecto.empresa.models.Tarea;
 import com.proyecto.empresa.services.TareasServices;
+import com.proyecto.empresa.to.EmpleadoTO;
 import com.proyecto.empresa.to.TareaTO;
 
 @RestController
@@ -26,46 +28,53 @@ import com.proyecto.empresa.to.TareaTO;
 public class TareasController {
 
 	private final TareasServices tareasServices;
-
+	private final TareaMapper tareaMapper;
+	
 	@Autowired
-	public TareasController(TareasServices tareasServices) {
+	public TareasController(TareasServices tareasServices, TareaMapper tareaMapper) {
 		this.tareasServices = tareasServices;
+		this.tareaMapper = tareaMapper;
 	}
 
 	// MÉTODOS COMUNES
 	// Endpoint para obtener todos las tareas
 	@GetMapping
-	public ResponseEntity<List<Tarea>> getAllTareas() {
+	public ResponseEntity<List<TareaTO>> getAllTareas() {
 		List<Tarea> obtenerTareas= tareasServices.getAll();
 		//Si no existen 
 		 if (obtenerTareas.isEmpty()) {
 		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		    }
 		 //Si existen
-		return new ResponseEntity<>(obtenerTareas, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(obtenerTareas);
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas por Id
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Optional<Tarea>> findById(@PathVariable("id") Long id) {
+	public ResponseEntity<TareaTO> findById(@PathVariable("id") Long id) {
 		Optional<Tarea> obtenerTareaId = tareasServices.findById(id);
 		//Si no existen 
 		 if (obtenerTareaId.isEmpty()) {
 		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		    }
 		//Si existen
-			return new ResponseEntity<>(obtenerTareaId, HttpStatus.OK);
+		 TareaTO tareaTO = tareaMapper.convertirATareaTO(obtenerTareaId.get());
+
+			return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// MÉTODOS PROPIOS
 	// Endpoint para CREAR una tarea
 	@PostMapping()
-	public ResponseEntity<Tarea> createTarea(@RequestBody TareaTO tareaTo) {
+	public ResponseEntity<TareaTO> createTarea(@RequestBody TareaTO tareaTo) {
 		// Llamada al servicio para guardar la tarea
 		Tarea createTarea = tareasServices.createTarea(tareaTo);
 
 		// Devuelve una respuesta 201
-		return new ResponseEntity<>(createTarea, HttpStatus.CREATED);
+		 TareaTO tareaTO = tareaMapper.convertirATareaTO(createTarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.CREATED);
 	}
 
 	// Endpoint para BORRAR una tarea
@@ -77,64 +86,73 @@ public class TareasController {
 	
 	// Endpoint para ACTUALIZAR una tarea
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<Tarea> updateTarea(@PathVariable("id") Long id, @RequestBody TareaTO TareaAct){
+	public ResponseEntity<TareaTO> updateTarea(@PathVariable("id") Long id, @RequestBody TareaTO TareaAct){
 		//Llamada al servicio y retorno de un código 2OO
 		Tarea tareaActualizada = tareasServices.updateTarea(id, TareaAct);
-		return new ResponseEntity<>(tareaActualizada, HttpStatus.OK);	
+		 TareaTO tareaTO = tareaMapper.convertirATareaTO(tareaActualizada);
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);	
 	}
 
 	// Endpoint para buscar tareas asignadas a un empelado específico
 	@GetMapping(path = "/tarea/{empleadoId}")
-	public ResponseEntity<List<Tarea>> findByEmpleadoId(@PathVariable("empleadoId") Long id) {
+	public ResponseEntity<List<TareaTO>> findByEmpleadoId(@PathVariable("empleadoId") Long id) {
 		// Llamada al servicio para buscar la tarea
 		List<Tarea> tarea = tareasServices.findByEmpleadoId(id);
 		// Si no encuentra la tarea, devuelve un 404. Si existe, devuelve un 200
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(tarea, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas entregadas a tiempo(true)
 	@GetMapping(path = "/tarea/true")
-	public ResponseEntity<List<Tarea>> findByEntregaATiempo() {
+	public ResponseEntity<List<TareaTO>> findByEntregaATiempo() {
 		// Llamada al servicio para buscar la tarea
 		List<Tarea> tarea = tareasServices.findByEntregaATiempo();
 		// Si no encuentra la tarea, devuelve un 404. Si existe, devuelve un 200
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(tarea, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas entregadas a destiempo(false)
 	@GetMapping(path = "/tarea/false")
-	public ResponseEntity<List<Tarea>> findByEntregaADestiempo() {
+	public ResponseEntity<List<TareaTO>> findByEntregaADestiempo() {
 		// Llamada al servicio para buscar la tarea
 		List<Tarea> tarea = tareasServices.findByEntregaADestiempo();
 		// Si no encuentra la tarea, devuelve un 404. Si existe, devuelve un 200
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(tarea, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas no finalizadas
 	@GetMapping(path = "/tarea/nofinalizada")
-	public ResponseEntity<List<Tarea>> findByNotFinished() {
+	public ResponseEntity<List<TareaTO>> findByNotFinished() {
 		// Llamada al servicio para buscar la tarea
 		List<Tarea> tarea = tareasServices.findByNotFinished();
 		// Si no encuentra la tarea, devuelve un 404. Si existe, devuelve un 200
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(tarea, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas entregadas después de una fecha específica.
 	// DateTimeFormat nos permite el usar el forato YYYY-MM-DD en la URL
 	@GetMapping(path = "/fechaDespues/{fecha}")
-	ResponseEntity<List<Tarea>> findByFechaCreacion(
+	ResponseEntity<List<TareaTO>> findByFechaCreacion(
 			@PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaCreacion) {
 		// Llamada al servicio para buscar la tarea
 		List<Tarea> tarea = tareasServices.findByFechaCreacion(fechaCreacion);
@@ -142,12 +160,14 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(tarea, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas entregadas antes de una fecha específica
 	@GetMapping(path = "/fechaAnterior/{fecha}")
-	public ResponseEntity<List<Tarea>> findByFechaAnteriorCreacion(
+	public ResponseEntity<List<TareaTO>> findByFechaAnteriorCreacion(
 			@PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaCreacion) {
 		// Llamada al servicio para buscar la tarea
 		List<Tarea> tarea = tareasServices.findByFechaAnteriorCreacion(fechaCreacion);
@@ -155,12 +175,14 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(tarea, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar tareas entregadas entre dos fechas
 	@GetMapping(path = "/fechaEntre/{fechauno}/{fechados}")
-	public ResponseEntity<List<Tarea>> findByFechaCreacionBetween(
+	public ResponseEntity<List<TareaTO>> findByFechaCreacionBetween(
 			@PathVariable("fechauno") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaA,
 			@PathVariable("fechados") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaB) {
 		// Llamada al servicio para buscar la tarea
@@ -169,7 +191,9 @@ public class TareasController {
 		if (tarea.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(tarea, HttpStatus.OK);
+		 List<TareaTO> tareaTO = tareaMapper.convertirListaATareaTO(tarea);
+
+		return new ResponseEntity<>(tareaTO, HttpStatus.OK);
 	}
 
 }

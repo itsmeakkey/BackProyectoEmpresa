@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.empresa.mappers.JefeMapper;
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.services.JefeServices;
+import com.proyecto.empresa.to.EmpleadoTO;
 import com.proyecto.empresa.to.JefeTO;
 
 @RestController
@@ -24,55 +26,62 @@ import com.proyecto.empresa.to.JefeTO;
 public class JefeController {
 
 	private final JefeServices jefeServices;
-
+	private final  JefeMapper jefeMapper;
 	@Autowired
-	public JefeController(JefeServices jefeServices) {
+	public JefeController(JefeServices jefeServices, JefeMapper jefeMapper) {
 		this.jefeServices = jefeServices;
+		this.jefeMapper = jefeMapper;
 	}
 
 //MÉTODOS COMUNES	
 	// Endpoint para obtener todos los jefes
 	@GetMapping
-	public ResponseEntity<List<Jefe>> getAllJefes() {
+	public ResponseEntity<List<JefeTO>> getAllJefes() {
 		List<Jefe> obtenerJefes= jefeServices.getAll();
 		//Si no existen 
 		 if (obtenerJefes.isEmpty()) {
 		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		    }
 		 //Si existen
-		return new ResponseEntity<>(obtenerJefes, HttpStatus.OK);
+		 List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(obtenerJefes);
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar jefes por Id
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Optional<Jefe>> findById(@PathVariable("id") Long id) {
+	public ResponseEntity<JefeTO> findById(@PathVariable("id") Long id) {
 		Optional<Jefe> obtenerJefeId = jefeServices.findById(id);
 		//Si no existen 
 		 if (obtenerJefeId.isEmpty()) {
 		        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		    }
 		//Si existen
-			return new ResponseEntity<>(obtenerJefeId, HttpStatus.OK);
+		 JefeTO jefeTO = jefeMapper.convertirAJefeTO(obtenerJefeId.get());
+			return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 	}
 
 //MÉTODOS PROPIOS   	
 	// Endpoint para CREAR un jefe
 	@PostMapping
-	public ResponseEntity<Jefe> createJefe(@RequestBody JefeTO jefeTo) {
+	public ResponseEntity<JefeTO> createJefe(@RequestBody JefeTO jefeTo) {
 		// Llamada al servicio para guardar el jefe
 		Jefe createJefe = jefeServices.createJefe(jefeTo);
 
 		// Devuelve una respuesta 201
-		return new ResponseEntity<>(createJefe, HttpStatus.CREATED);
+		 JefeTO jefeTO = jefeMapper.convertirAJefeTO(createJefe);
+
+		return new ResponseEntity<>(jefeTO, HttpStatus.CREATED);
 	}
 
 	// Endpoint para ACTUALIZAR un jefe
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<Jefe> updateJefe(@PathVariable("id") Long id, @RequestBody JefeTO jefeAct) {
+	public ResponseEntity<JefeTO> updateJefe(@PathVariable("id") Long id, @RequestBody JefeTO jefeAct) {
 		// Llamada al servicio para actualizar el jefe
 		Jefe jefeActualizado = jefeServices.updateJefe(id, jefeAct);
 		// Devuelve el jefe actualizado con un código HTTP 200 OK
-		return new ResponseEntity<>(jefeActualizado, HttpStatus.OK);
+		 JefeTO jefeTO = jefeMapper.convertirAJefeTO(jefeActualizado);
+
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 
 	}
 
@@ -85,63 +94,68 @@ public class JefeController {
 
 	// Endpoint para buscar por nombre
 	@GetMapping(path = "/nombre/{nombre}")
-	public ResponseEntity<List<Jefe>> findByNombre(@PathVariable("nombre") String nombre) {
+	public ResponseEntity<List<JefeTO>> findByNombre(@PathVariable("nombre") String nombre) {
 		List<Jefe> jefes = jefeServices.findByNombre(nombre);
 
 		// Si no encuentra el nombre, devuelve un 404. Si existe, devuelve un 200
 		if (jefes.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(jefes, HttpStatus.OK);
+		List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(jefes);
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 
 	}
 
 	// Endpoint para buscar por edad
 	@GetMapping(path = "/edad/{edad}")
-	public ResponseEntity<List<Jefe>> findByEdad(@PathVariable("edad") Integer edad) {
+	public ResponseEntity<List<JefeTO>> findByEdad(@PathVariable("edad") Integer edad) {
 		List<Jefe> jefes = jefeServices.findByEdad(edad);
 
 		// Si no encuentra la edad, devuelve un 404. Si existe, devuelve un 200
 		if (jefes.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(jefes, HttpStatus.OK);
+		List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(jefes);
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 
 	}
 
 	// Endpoint para buscar por un salario superior a x.
 	@GetMapping(path = "/salariosup/{salario}")
-	public ResponseEntity<List<Jefe>> findBySuperiorASalario(@PathVariable("salario") Long salario) {
+	public ResponseEntity<List<JefeTO>> findBySuperiorASalario(@PathVariable("salario") Long salario) {
 		List<Jefe> jefes = jefeServices.findBySuperiorASalario(salario);
 
 		// Si no encuentra el salario, devuelve un 404. Si existe, devuelve un 200
 		if (jefes.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(jefes, HttpStatus.OK);
+		List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(jefes);
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar por un salario inferior a x.
 	@GetMapping(path = "/salariosinf/{salario}")
-	public ResponseEntity<List<Jefe>> findByInferiorASalario(@PathVariable("salario") Long salario) {
+	public ResponseEntity<List<JefeTO>> findByInferiorASalario(@PathVariable("salario") Long salario) {
 		List<Jefe> jefes = jefeServices.findByInferiorASalario(salario);
 
 		// Si no encuentra el salario, devuelve un 404. Si existe, devuelve un 200
 		if (jefes.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(jefes, HttpStatus.OK);
+		List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(jefes);
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 	}
 
 	// Endpoint para buscar entre dos valores salario.
 	@GetMapping(path = "/salariosbet/{salarioA}/{salarioB}")
-	public ResponseEntity<List<Jefe>> findByEntreSalarios(@PathVariable("salarioA") Long salarioA,
+	public ResponseEntity<List<JefeTO>> findByEntreSalarios(@PathVariable("salarioA") Long salarioA,
 			@PathVariable("salarioB") Long salarioB) {
 		List<Jefe> jefes = jefeServices.findByEntreSalarios(salarioA, salarioB);
 		if (jefes.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(jefes, HttpStatus.OK);
+		List<JefeTO> jefeTO = jefeMapper.convertirListaAJefeTO(jefes);
+		return new ResponseEntity<>(jefeTO, HttpStatus.OK);
 	}
 
 }

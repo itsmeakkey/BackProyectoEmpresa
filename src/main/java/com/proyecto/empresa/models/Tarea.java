@@ -27,7 +27,7 @@ public class Tarea {
     // Relación muchos a uno con Empleado
     @ManyToOne
     @JoinColumn(name = "empleado_id") // Clave foránea
-	@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
+	//@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
     private Empleado empleado;
  
     // Getters y Setters

@@ -30,7 +30,7 @@ public class Empleado extends TrabajadorEmpresa {
 	@ManyToOne
 	@JoinColumn(name = "departamento_id") // Clave foránea en la tabla empleado
 	//TODO QUITAR CUANDO CORRIJAMOS LOS CONTROLADORES CON MAPPER
-	@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
+	//@JsonIgnore //Evita que el departamento se serialice en el JSON del Empleado para que no haga un ciclo infinito
 	private Departamento departamento;
 	public Departamento getDepartamento() {
 		return departamento;
