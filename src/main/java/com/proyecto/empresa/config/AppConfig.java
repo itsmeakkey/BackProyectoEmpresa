@@ -3,6 +3,8 @@ package com.proyecto.empresa.config;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.proyecto.empresa.mappers.DepartamentoMapper;
 import com.proyecto.empresa.mappers.EmpleadoMapper;
@@ -23,6 +25,23 @@ import com.proyecto.empresa.services.impl.TareasServicesImpl;
 
 @Configuration
 public class AppConfig {
+	
+	/*Configuración para habilitar CORS (Cross-Origin Resource Sharing), mecanismo de seguridad que restringe como las páginas de un dominio
+	pueden interactuar con recursos de otro dominio (http://localhost:4000 - http://localhost:4200)*/
+    @Bean
+    public WebMvcConfigurer configurador() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry regis) {
+            	regis.addMapping("/**") // Permite todas las rutas de la API
+                        .allowedOrigins("http://localhost:4200") // Permite el puerto que usamos para Angular
+                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Peticiones permitidas
+                        .allowedHeaders("*") // Permite todos los headers (por ejemplo Headers http)
+                        .allowCredentials(true); // Permite el uso de cookies y autenticación
+            }
+        };
+    }
+	
 
 	// Inyección de dependencias de repositories a ServicesImpl
 
