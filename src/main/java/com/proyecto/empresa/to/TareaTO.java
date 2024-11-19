@@ -2,12 +2,17 @@ package com.proyecto.empresa.to;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class TareaTO {
 	private Long id;
 	private String nombreTarea;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date fechaCreacion;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date fechaFin;
 	private Boolean entregadoATiempo;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date fechaEstimada;
 	// ESTE CAMPO DEBE SER TO
 	private EmpleadoTO empleadoTO;

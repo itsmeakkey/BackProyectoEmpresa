@@ -58,8 +58,8 @@ public class AppConfig {
 	}
 
 	@Bean
-	public JefeServices jefeServices(JefeRepository jefeRepository) {
-		return new JefeServicesImpl(jefeRepository);
+	public JefeServices jefeServices(JefeRepository jefeRepository, JefeMapper jefeMapper) {
+		return new JefeServicesImpl(jefeRepository, jefeMapper);
 	}
 
 	@Bean
@@ -87,4 +87,6 @@ public class AppConfig {
 	public TareaMapper tareaMapper() {
 		return Mappers.getMapper(TareaMapper.class);
 	}
+	
+	
 }

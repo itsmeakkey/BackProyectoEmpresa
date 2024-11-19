@@ -2,12 +2,17 @@ package com.proyecto.empresa.to;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class TrabajadorEmpresaTO {
 	protected Long id;
 	protected String nombre;
 	protected Integer edad;
-	protected Date fechaAlta;
-	protected Date fechaBaja;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    protected Date fechaAlta;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    protected Date fechaBaja;
 	protected Long salario;
 
 	public Long getId() {

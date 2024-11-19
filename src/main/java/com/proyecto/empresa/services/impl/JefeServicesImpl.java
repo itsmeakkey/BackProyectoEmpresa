@@ -1,9 +1,10 @@
 package com.proyecto.empresa.services.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-
+import com.proyecto.empresa.mappers.JefeMapper;
 import com.proyecto.empresa.models.Jefe;
 import com.proyecto.empresa.repositories.JefeRepository;
 import com.proyecto.empresa.services.JefeServices;
@@ -12,11 +13,13 @@ import com.proyecto.empresa.to.JefeTO;
 
 public class JefeServicesImpl implements JefeServices{
 	private final JefeRepository jefeRepository;
+	private final JefeMapper jefeMapper;
 
 	// No se necesita Autowired porque manejamos las inyecciones con beans desde
 	// AppConfig
-	public JefeServicesImpl(JefeRepository jefeRepository) {
+	public JefeServicesImpl(JefeRepository jefeRepository, JefeMapper jefeMapper) {
 		this.jefeRepository = jefeRepository;
+		this.jefeMapper = jefeMapper;
 	}
 
 	// MÉTODOS COMUNES
@@ -34,15 +37,15 @@ public class JefeServicesImpl implements JefeServices{
 	// Método para CREAR un jefe
 	@Override
 	public Jefe createJefe(JefeTO j) {
-		Jefe jefe = new Jefe();
-		jefe.setNombre(j.getNombre());
-		jefe.setEdad(j.getEdad());
-		jefe.setfechaAlta(j.getfechaAlta());
-		jefe.setfechaAlta(j.getfechaBaja());
-		jefe.setSalario(j.getSalario());
-		jefe.setFechaJefe(j.getFechaJefe());
+	    //Convertir con el mapper
+	    Jefe jefe = jefeMapper.convertirDeJefeTO(j);
+	    
+	    //Comprobar si es null
+	    if (jefe.getFechaJefe() == null) {
+	        jefe.setFechaJefe(new Date());
+	    }
 
-		return jefeRepository.save(jefe);
+	    return jefeRepository.save(jefe);
 	}
 
 	// Método para ACTUALIZAR un jefe
