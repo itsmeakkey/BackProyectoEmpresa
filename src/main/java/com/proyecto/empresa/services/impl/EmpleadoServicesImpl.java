@@ -2,6 +2,8 @@ package com.proyecto.empresa.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.proyecto.empresa.mappers.EmpleadoMapper;
 import com.proyecto.empresa.models.Departamento;
 import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.repositories.DepartamentoRepository;
@@ -16,10 +18,12 @@ public class EmpleadoServicesImpl implements EmpleadoServices{
 	// AppConfig
 	private final EmpleadoRepository empleadoRepository;
 	private final DepartamentoRepository departamentoRepository;
+	private final EmpleadoMapper empleadoMapper;
 
-	public EmpleadoServicesImpl(EmpleadoRepository empleadoRepository, DepartamentoRepository departamentoRepository) {
+	public EmpleadoServicesImpl(EmpleadoRepository empleadoRepository, DepartamentoRepository departamentoRepository, EmpleadoMapper empleadoMapper) {
 		this.empleadoRepository = empleadoRepository;
 		this.departamentoRepository = departamentoRepository;
+		this.empleadoMapper = empleadoMapper;
 	}
 
 	// MÉTODOS COMUNES
@@ -39,24 +43,18 @@ public class EmpleadoServicesImpl implements EmpleadoServices{
 	// Método para CREAR un empleado
 	@Override
 	public Empleado createEmpleado(EmpleadoTO e) {
-		// Buscamos el departamento por ID
-		Departamento departamento = departamentoRepository.findById(e.getDepartamentoTO().getId())
-				.orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
-
-		// Crear el objeto empleado para asignar los valores
-		Empleado empleado = new Empleado();
-
-		empleado.setNombre(e.getNombre());
-		empleado.setEdad(e.getEdad());
-		empleado.setfechaAlta(e.getfechaAlta());
-		empleado.setfechaBaja(e.getfechaBaja());
-		empleado.setSalario(e.getSalario());
-
-		// Asigno el departamento al empleado
-		empleado.setDepartamento(departamento);
-
-		// Guardamos el empleado en BBDD
-		return empleadoRepository.save(empleado);
+	    //Convertimos con el mapper
+	    Empleado empleado = empleadoMapper.convertirDeEmpleadoTO(e);
+	 
+	    // Buscamos el dpto por id
+	    Departamento departamento = departamentoRepository.findById(e.getDepartamentoTO().getId())
+	            .orElseThrow(() -> new RuntimeException("Departamento no encontrado"));
+	 
+	    // Asignar el departamento al empleado
+	    empleado.setDepartamento(departamento);
+	 
+	    //Guardamos
+	    return empleadoRepository.save(empleado);
 	}
 
 	// Método para BORRAR un empleado

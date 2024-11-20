@@ -53,8 +53,8 @@ public class AppConfig {
 
 	@Bean
 	public EmpleadoServices empleadoServices(EmpleadoRepository empleadoRepository,
-			DepartamentoRepository departamentoRepository) {
-		return new EmpleadoServicesImpl(empleadoRepository, departamentoRepository);
+			DepartamentoRepository departamentoRepository, EmpleadoMapper empleadoMapper) {
+		return new EmpleadoServicesImpl(empleadoRepository, departamentoRepository, empleadoMapper);
 	}
 
 	@Bean
@@ -63,8 +63,8 @@ public class AppConfig {
 	}
 
 	@Bean
-	public TareasServices tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
-		return new TareasServicesImpl(tareasRepository, empleadoRepository);
+	public TareasServices tareasServices(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository, TareaMapper tareaMapper) {
+		return new TareasServicesImpl(tareasRepository, empleadoRepository, tareaMapper);
 	}
 
 	// Inyección de Mappers

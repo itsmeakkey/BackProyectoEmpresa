@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.proyecto.empresa.mappers.TareaMapper;
 import com.proyecto.empresa.models.Empleado;
 import com.proyecto.empresa.models.Tarea;
 import com.proyecto.empresa.repositories.EmpleadoRepository;
@@ -17,10 +18,11 @@ public class TareasServicesImpl implements TareasServices {
 	// AppConfig
 	private final TareasRepository tareasRepository;
 	private final EmpleadoRepository empleadoRepository;
-
-	public TareasServicesImpl(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository) {
+	private final TareaMapper tareaMapper;
+	public TareasServicesImpl(TareasRepository tareasRepository, EmpleadoRepository empleadoRepository, TareaMapper tareaMapper) {
 		this.tareasRepository = tareasRepository;
 		this.empleadoRepository = empleadoRepository;
+		this.tareaMapper = tareaMapper;
 	}
 
 	// MÉTODOS COMUNES
@@ -40,22 +42,18 @@ public class TareasServicesImpl implements TareasServices {
 	// CREAR una nueva tarea
 	@Override
 	public Tarea createTarea(TareaTO t) {
-		Empleado empleado = empleadoRepository.findById(t.getEmpleadoTO().getId())
-				.orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
-
-		// Creamos la tarea recibiendo los valores de TareaTO
-		Tarea tarea = new Tarea();
-		tarea.setNombreTarea(t.getNombreTarea());
-		tarea.setFechaCreacion(t.getFechaCreacion());
-		tarea.setFechaFin(t.getFechaFin());
-		tarea.setEntregadoATiempo(t.getEntregadoATiempo());
-		tarea.setFechaEstimada(t.getFechaEstimada());
-
-		// Asigna la tarea al empleado
-		tarea.setEmpleado(empleado);
-
-		// Guardamos la tarea en BBDD
-		return tareasRepository.save(tarea);
+	    // Buscamos el empleado por Id
+	    Empleado empleado = empleadoRepository.findById(t.getEmpleadoTO().getId())
+	            .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+	 
+	    // Hacemos la conversion inversa
+	    Tarea tarea = tareaMapper.convertirDeTareaTO(t);
+	 
+	    // Asignamos el empleado a la tarea
+	    tarea.setEmpleado(empleado);
+	 
+	    // Guardamos la tarea en la base de datos
+	    return tareasRepository.save(tarea);
 	}
 
 	// ACTUALIZAR una tarea

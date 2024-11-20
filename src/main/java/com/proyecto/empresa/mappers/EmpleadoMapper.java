@@ -18,5 +18,8 @@ public interface EmpleadoMapper {
 
 	// Convertimos Lista a ListaTO
 	List<EmpleadoTO> convertirListaAEmpleadoTO(List<Empleado> empleado);
+	
+	// Mapeo inverso para las fechas
+	Empleado convertirDeEmpleadoTO(EmpleadoTO mpleadoTO);
 
 }
