@@ -78,7 +78,7 @@ public class EmpleadoServicesImpl implements EmpleadoServices{
 		empleado.setNombre(e.getNombre());
 		empleado.setEdad(e.getEdad());
 		empleado.setfechaAlta(e.getfechaAlta());
-		empleado.setfechaAlta(e.getfechaBaja());
+		empleado.setfechaBaja(e.getfechaBaja());
 		empleado.setSalario(e.getSalario());
 
 		// Asignamos el departamento al empleado
